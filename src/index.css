@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: auto !important; /* Lenis handles smooth scrolling */
+  }
+
+  body {
+    background-color: #0d0d0d;
+    color: #e5e5e5;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Custom Luxury Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0d0d0d;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #2a261c;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #d4af37;
+  }
+}
+
+@layer utilities {
+  /* Subtle dark editorial grid overlay */
+  .bg-grid-pattern {
+    background-size: 50px 50px;
+    background-image: 
+      linear-gradient(to right, rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+  }
+
+  .bg-radial-vignette {
+    background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.08) 0%, rgba(13, 13, 13, 0) 70%);
+  }
+
+  /* Glassmorphism Presets */
+  .glass-nav {
+    background: rgba(13, 13, 13, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+  }
+
+  .glass-card {
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  }
+
+  .glass-card-hover {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-card-hover:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    box-shadow: 0 14px 40px -12px rgba(212, 175, 55, 0.15);
+    transform: translateY(-4px);
+  }
+
+  /* Gold Text Gradient */
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #ffffff 0%, #d4af37 60%, #f59e0b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-metallic-gold {
+    background: linear-gradient(180deg, #fffbeb 0%, #d4af37 70%, #92400e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Glow Utilities */
+  .glow-gold-sm {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+  }
+
+  .glow-gold-lg {
+    box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
+  }
+}
+
+/* Custom styling for horizontal scroll container in Projects */
+.horizontal-scroll-section {
+  overscroll-behavior: none;
+}
