@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Menu, X, ArrowUpRight, Download, Sparkles } from 'lucide-react';
+
+const CV_PATH = '/cv-dori-frans-dika.pdf';
+const CV_FILENAME = 'CV-Dori-Frans-Dika.pdf';
 
 const navLinks = [
   { name: 'Beranda', href: '#beranda' },
@@ -25,6 +28,25 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('#beranda');
+
+  // Programmatic download that bypasses browser cache
+  const handleDownloadCV = useCallback(async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(CV_PATH, { cache: 'no-store' });
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = CV_FILENAME;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      window.open(CV_PATH, '_blank');
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -119,14 +141,13 @@ export default function Navbar() {
 
         {/* Action Button: Download CV & Mobile Toggle */}
         <div className="flex items-center gap-3">
-          <a
-            href="/cv-dori-frans-dika.pdf"
-            download="CV-Dori-Frans-Dika.pdf"
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-dark-950 bg-gradient-to-r from-gold-300 via-gold to-amber-500 rounded-full hover:brightness-110 shadow-lg shadow-gold/20 hover:shadow-gold/40 transition-all duration-300 hover:scale-105 active:scale-95"
+          <button
+            onClick={handleDownloadCV}
+            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-dark-950 bg-gradient-to-r from-gold-300 via-gold to-amber-500 rounded-full hover:brightness-110 shadow-lg shadow-gold/20 hover:shadow-gold/40 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
           >
             <Download className="w-3.5 h-3.5 stroke-[2.5]" />
             <span>Download CV</span>
-          </a>
+          </button>
 
           {/* Mobile Menu Hamburger */}
           <button
@@ -166,14 +187,13 @@ export default function Navbar() {
           </div>
 
           <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
-            <a
-              href="/cv-dori-frans-dika.pdf"
-              download="CV-Dori-Frans-Dika.pdf"
-              className="w-full flex items-center justify-center gap-2 py-2.5 text-xs font-semibold uppercase tracking-wider text-dark-950 bg-gradient-to-r from-gold-300 via-gold to-amber-500 rounded-xl hover:brightness-110 shadow-lg shadow-gold/20"
+            <button
+              onClick={handleDownloadCV}
+              className="w-full flex items-center justify-center gap-2 py-2.5 text-xs font-semibold uppercase tracking-wider text-dark-950 bg-gradient-to-r from-gold-300 via-gold to-amber-500 rounded-xl hover:brightness-110 shadow-lg shadow-gold/20 cursor-pointer"
             >
               <Download className="w-4 h-4" />
               <span>Download CV PDF</span>
-            </a>
+            </button>
           </div>
         </div>
       )}

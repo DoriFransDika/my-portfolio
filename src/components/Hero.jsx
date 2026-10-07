@@ -1,13 +1,36 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { Sparkles, Mail, ArrowRight, Download } from 'lucide-react';
 import gsap from 'gsap';
 import ProfileCard from './ProfileCard';
+
+const CV_PATH = '/cv-dori-frans-dika.pdf';
+const CV_FILENAME = 'CV-Dori-Frans-Dika.pdf';
 
 export default function Hero() {
   const heroRef = useRef(null);
   const badgeRef = useRef(null);
   const mottoRef = useRef(null);
   const headlineRef = useRef(null);
+
+  // Programmatic download that bypasses browser cache
+  const handleDownloadCV = useCallback(async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(CV_PATH, { cache: 'no-store' });
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = CV_FILENAME;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      // Fallback: direct navigation
+      window.open(CV_PATH, '_blank');
+    }
+  }, []);
   const descRef = useRef(null);
   const ctaRef = useRef(null);
   const profileCardRef = useRef(null);
@@ -159,15 +182,14 @@ export default function Hero() {
               </a>
 
               {/* Quick CV Download — font-mono for small label */}
-              <a
-                href="/cv-dori-frans-dika.pdf"
-                download="CV-Dori-Frans-Dika.pdf"
+              <button
+                onClick={handleDownloadCV}
                 title="Download Curriculum Vitae"
-                className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-full text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-amber-400 hover:bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-full text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-amber-400 hover:bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 transition-all duration-300 cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>CV</span>
-              </a>
+              </button>
             </div>
 
           </div>
