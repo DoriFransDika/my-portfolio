@@ -162,8 +162,6 @@ export default function Hero() {
               <a
                 href="/cv-dori-frans-dika.pdf"
                 download="CV-Dori-Frans-Dika.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
                 title="Download Curriculum Vitae"
                 className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-full text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-amber-400 hover:bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 transition-all duration-300"
               >

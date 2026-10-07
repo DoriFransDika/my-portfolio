@@ -122,8 +122,6 @@ export default function Navbar() {
           <a
             href="/cv-dori-frans-dika.pdf"
             download="CV-Dori-Frans-Dika.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
             className="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-dark-950 bg-gradient-to-r from-gold-300 via-gold to-amber-500 rounded-full hover:brightness-110 shadow-lg shadow-gold/20 hover:shadow-gold/40 transition-all duration-300 hover:scale-105 active:scale-95"
           >
             <Download className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -171,8 +169,6 @@ export default function Navbar() {
             <a
               href="/cv-dori-frans-dika.pdf"
               download="CV-Dori-Frans-Dika.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
               className="w-full flex items-center justify-center gap-2 py-2.5 text-xs font-semibold uppercase tracking-wider text-dark-950 bg-gradient-to-r from-gold-300 via-gold to-amber-500 rounded-xl hover:brightness-110 shadow-lg shadow-gold/20"
             >
               <Download className="w-4 h-4" />
