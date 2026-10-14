@@ -32,8 +32,10 @@ export default function Navbar() {
   // Programmatic download that bypasses browser cache
   const handleDownloadCV = useCallback(async (e) => {
     e.preventDefault();
+    const freshUrl = `${CV_PATH}?v=${Date.now()}`;
     try {
-      const res = await fetch(CV_PATH, { cache: 'no-store' });
+      const res = await fetch(freshUrl, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Network response was not ok');
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -44,7 +46,7 @@ export default function Navbar() {
       a.remove();
       URL.revokeObjectURL(url);
     } catch {
-      window.open(CV_PATH, '_blank');
+      window.open(freshUrl, '_blank');
     }
   }, []);
 

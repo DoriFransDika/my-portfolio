@@ -56,7 +56,7 @@ export default function Preloader({ onFinished }) {
       </div>
 
       {/* Main content wrapper */}
-      <div ref={contentRef} className="relative z-10 flex flex-col items-center gap-6 px-4">
+      <div ref={contentRef} className="relative z-10 flex flex-col items-center gap-5 sm:gap-6 px-2 sm:px-4 w-full max-w-full">
         {/* Top decorative line */}
         <div className="flex items-center gap-3">
           <div className="w-8 h-px bg-gradient-to-r from-transparent to-amber-500/60" />
@@ -66,15 +66,14 @@ export default function Preloader({ onFinished }) {
           <div className="w-8 h-px bg-gradient-to-l from-transparent to-amber-500/60" />
         </div>
 
-        {/* Split Flap Display - Main Word: DORI FRANS DIKA */}
+        {/* Split Flap Display - Main Word: DORI FRANS DIKA (Single Row, Responsive, Never Wrapped) */}
         <SplitFlapText
           words={['DORI FRANS DIKA']}
           tileColor="#121212"
           textColor="#f59e0b"
-          fontSize="clamp(1.2rem, 3.6vw, 2.6rem)"
           flipDuration={35}
           staggerDelay={18}
-          holdDuration={550}
+          holdDuration={600}
           onComplete={handleFlipComplete}
         />
 

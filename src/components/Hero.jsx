@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import { Sparkles, Mail, ArrowRight, Download } from 'lucide-react';
+import { Mail, ArrowRight, Download, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
 import ProfileCard from './ProfileCard';
 
@@ -8,15 +8,21 @@ const CV_FILENAME = 'CV-Dori-Frans-Dika.pdf';
 
 export default function Hero() {
   const heroRef = useRef(null);
+  const leftColRef = useRef(null);
+  const rightColRef = useRef(null);
   const badgeRef = useRef(null);
   const mottoRef = useRef(null);
   const headlineRef = useRef(null);
+  const descRef = useRef(null);
+  const ctaRef = useRef(null);
 
   // Programmatic download that bypasses browser cache
   const handleDownloadCV = useCallback(async (e) => {
     e.preventDefault();
+    const freshUrl = `${CV_PATH}?v=${Date.now()}`;
     try {
-      const res = await fetch(CV_PATH, { cache: 'no-store' });
+      const res = await fetch(freshUrl, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Network response was not ok');
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -27,55 +33,8 @@ export default function Hero() {
       a.remove();
       URL.revokeObjectURL(url);
     } catch {
-      // Fallback: direct navigation
-      window.open(CV_PATH, '_blank');
+      window.open(freshUrl, '_blank');
     }
-  }, []);
-  const descRef = useRef(null);
-  const ctaRef = useRef(null);
-  const profileCardRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // 1. Entrance animation for Left Column narrative
-      gsap.fromTo(
-        [badgeRef.current, mottoRef.current, headlineRef.current, descRef.current, ctaRef.current],
-        {
-          opacity: 0,
-          y: 28,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          stagger: 0.12,
-          ease: 'power3.out',
-          delay: 0.2,
-        }
-      );
-
-      // 2. Entrance animation for ProfileCard
-      if (profileCardRef.current) {
-        gsap.fromTo(
-          profileCardRef.current,
-          {
-            opacity: 0,
-            y: 35,
-            scale: 0.96,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1.1,
-            ease: 'power3.out',
-            delay: 0.35,
-          }
-        );
-      }
-    }, heroRef);
-
-    return () => ctx.revert();
   }, []);
 
   const handleScrollTo = (e, targetId) => {
@@ -90,26 +49,48 @@ export default function Hero() {
     }
   };
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. Entrance animation for Left Column narrative
+      gsap.fromTo(
+        [badgeRef.current, mottoRef.current, headlineRef.current, descRef.current, ctaRef.current].filter(Boolean),
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.9, stagger: 0.12, ease: 'power3.out', delay: 0.2 }
+      );
+
+      // 2. Entrance animation for Right Column ProfileCard
+      if (rightColRef.current) {
+        gsap.fromTo(
+          rightColRef.current,
+          { opacity: 0, y: 35, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 1.1, ease: 'power3.out', delay: 0.35 }
+        );
+      }
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       id="beranda"
       ref={heroRef}
-      className="relative min-h-[92vh] pt-28 pb-16 md:pt-36 md:pb-24 flex flex-col justify-center overflow-hidden bg-grid-pattern"
+      className="relative min-h-[92vh] pt-28 pb-16 md:pt-36 md:pb-24 flex flex-col justify-center overflow-hidden bg-grid-pattern bg-[#050505]"
     >
       {/* Background Radial Ambiance */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] md:w-[750px] md:h-[750px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none -z-10" />
       <div className="absolute bottom-10 left-10 w-72 h-72 bg-amber-500/5 rounded-full blur-[100px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
-          {/* ─── SISI KIRI: Narasi Perkenalan ─── */}
-          <div className="lg:col-span-7 flex flex-col items-start z-10">
+          {/* ─── KOLOM KIRI (Desktop: Col 7, Mobile: Teks di atas) ─── */}
+          <div ref={leftColRef} className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left z-10">
 
-            {/* Badge Status & Akademis — font-mono for labels */}
+            {/* Badge Status & Akademis */}
             <div
               ref={badgeRef}
-              className="flex flex-wrap items-center gap-2.5 sm:gap-3.5 mb-6"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3.5 mb-5"
             >
               {/* Badge 1: Available for Opportunities */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-emerald-500/30 text-xs font-mono text-zinc-200 shadow-sm backdrop-blur-md">
@@ -128,38 +109,38 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Sub-label — font-mono */}
+            {/* Sub-label */}
             <div
               ref={mottoRef}
               className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-amber-400 font-semibold mb-3"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>PERSONAL MOTTO & VISION</span>
+              <span>PERSONAL MOTTO &amp; VISION</span>
             </div>
 
-            {/* Main Title (H1) — 100% Consistent with About Section (font-display 'Syne' + text-gold-gradient) */}
-            <h1
-              ref={headlineRef}
-              className="text-3xl sm:text-4xl lg:text-[42px] font-display font-extrabold text-white leading-[1.2] tracking-normal mb-6"
-            >
-              Turning Complex Data into{' '}
-              <span className="text-gold-gradient">
-                Elegant Web Solutions.
-              </span>
-            </h1>
+            {/* Headline Utama (H1) — font-display 'Syne' + text-gold-gradient */}
+            <div ref={headlineRef} className="mb-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white leading-[1.2] tracking-tight">
+                Halo, Saya <br />
+                <span className="text-gold-gradient">Dori Frans Dika.</span>
+              </h1>
+              <p className="text-sm sm:text-base font-semibold text-amber-400 mt-2 font-mono">
+                Software Engineer &amp; Programmer
+              </p>
+            </div>
 
-            {/* Deskripsi Perkenalan — font-sans, fokus perkenalan bukan detail teknis */}
+            {/* Deskripsi Perkenalan — Friendly & Humble */}
             <p
               ref={descRef}
-              className="text-zinc-400 text-base sm:text-lg max-w-2xl leading-relaxed mb-8 sm:mb-10 font-sans"
+              className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed mb-6 sm:mb-8 font-sans"
             >
-              Halo, Saya <span className="text-white font-medium">Dori Frans Dika</span> — lulusan S1 Teknik Informatika dari Institut Teknologi Padang dengan predikat Cum Laude. Saya percaya bahwa teknologi terbaik lahir dari rasa ingin tahu yang tak henti dan semangat untuk terus belajar. Saat ini saya terbuka untuk peluang baru di mana saya bisa berkontribusi, bertumbuh, dan menciptakan solusi digital yang bermakna.
+              Selamat datang di portofolio saya. Saya lulusan S1 Teknik Informatika yang senang mengeksplorasi teknologi dan membangun solusi web yang fungsional. Mari gulir ke bawah untuk melihat perjalanan dan karya saya.
             </p>
 
-            {/* Tombol CTA — font-sans for button text */}
+            {/* Desktop CTA Buttons (Disembunyikan di Mobile, ditampilkan di lg:) */}
             <div
               ref={ctaRef}
-              className="flex flex-wrap items-center gap-4 w-full sm:w-auto"
+              className="hidden lg:flex flex-wrap items-center gap-4 w-full sm:w-auto"
             >
               {/* Primary: Hubungi Saya */}
               <a
@@ -173,15 +154,15 @@ export default function Hero() {
 
               {/* Secondary: Lihat Karya → */}
               <a
-                href="#proyek"
-                onClick={(e) => handleScrollTo(e, '#proyek')}
+                href="#projek"
+                onClick={(e) => handleScrollTo(e, '#projek')}
                 className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full text-sm font-sans font-medium tracking-wide text-zinc-200 hover:text-white bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-700 hover:border-amber-400/60 shadow-sm transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] backdrop-blur-md cursor-pointer"
               >
                 <span>Lihat Karya</span>
                 <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1.5 transition-transform duration-300" />
               </a>
 
-              {/* Quick CV Download — font-mono for small label */}
+              {/* Quick CV Download */}
               <button
                 onClick={handleDownloadCV}
                 title="Download Curriculum Vitae"
@@ -194,10 +175,10 @@ export default function Hero() {
 
           </div>
 
-          {/* ─── SISI KANAN: ProfileCard 3D Pop-Out ─── */}
+          {/* ─── KOLOM KANAN: ProfileCard dengan 3D Tilt & Pop-Out Photo ─── */}
           <div
-            ref={profileCardRef}
-            className="lg:col-span-5 flex justify-center lg:justify-end pt-16 sm:pt-20 lg:pt-20"
+            ref={rightColRef}
+            className="lg:col-span-5 flex flex-col items-center justify-center pt-8 sm:pt-12 lg:pt-16"
           >
             <div className="w-full max-w-[320px] sm:max-w-[360px]">
               <ProfileCard
@@ -214,6 +195,27 @@ export default function Hero() {
                 behindGlowColor="rgba(245, 158, 11, 0.25)"
               />
             </div>
+
+            {/* Mobile Only CTA Buttons (Tampil di mobile, disembunyikan di lg:) */}
+            <div className="grid grid-cols-2 gap-2.5 w-full max-w-[320px] sm:max-w-[360px] mt-6 lg:hidden">
+              <a
+                href="#kontak"
+                onClick={(e) => handleScrollTo(e, '#kontak')}
+                className="flex items-center justify-center gap-1.5 py-3 rounded-full text-xs font-bold text-zinc-950 bg-amber-500 hover:bg-amber-400 active:scale-95 transition-all shadow-md shadow-amber-500/25"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                <span>Hubungi Saya</span>
+              </a>
+              <a
+                href="#projek"
+                onClick={(e) => handleScrollTo(e, '#projek')}
+                className="flex items-center justify-center gap-1.5 py-3 rounded-full text-xs font-bold text-zinc-200 bg-zinc-900/80 border border-zinc-700 hover:border-amber-400/50 hover:text-amber-400 active:scale-95 transition-all"
+              >
+                <span>Lihat Karya</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+
           </div>
 
         </div>

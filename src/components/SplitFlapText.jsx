@@ -20,7 +20,7 @@ export default function SplitFlapText({
   words = ['DORI FRANS DIKA'],
   tileColor = '#121212',
   textColor = '#f59e0b',
-  fontSize = 'clamp(1.3rem, 3.8vw, 2.6rem)',
+  fontSize,
   flipDuration = 35,
   staggerDelay = 18,
   holdDuration = 400,
@@ -34,6 +34,32 @@ export default function SplitFlapText({
   const wordIndexRef = useRef(0);
   const mountedRef = useRef(true);
   const timersRef = useRef([]);
+  const containerRef = useRef(null);
+  const [scale, setScale] = useState(1);
+
+  // Auto-fit check to guarantee it never overflows any screen
+  useEffect(() => {
+    const handleFit = () => {
+      if (!containerRef.current) return;
+      const el = containerRef.current;
+      const parent = el.parentElement;
+      const available = parent ? parent.clientWidth - 16 : window.innerWidth - 24;
+      const natural = el.scrollWidth;
+      if (natural > available && natural > 0 && available > 0) {
+        setScale(Math.max(0.6, available / natural));
+      } else {
+        setScale(1);
+      }
+    };
+
+    handleFit();
+    window.addEventListener('resize', handleFit);
+    const t = setTimeout(handleFit, 60);
+    return () => {
+      window.removeEventListener('resize', handleFit);
+      clearTimeout(t);
+    };
+  }, []);
 
   const clearAllTimers = () => {
     timersRef.current.forEach((t) => {
@@ -148,67 +174,86 @@ export default function SplitFlapText({
 
   return (
     <div
-      className="split-flap-container"
       style={{
-        display: 'inline-flex',
-        gap: '4px',
+        width: '100%',
+        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        flexWrap: 'wrap',
-        perspective: '600px',
+        overflow: 'visible',
       }}
     >
-      {tiles.map((char, i) => (
-        <div
-          key={i}
-          className="split-flap-tile"
-          style={{
-            width: `clamp(1.5rem, ${fontSize}, 3.4rem)`,
-            height: `clamp(2.1rem, calc(${fontSize} * 1.4), 4.8rem)`,
-            backgroundColor: tileColor,
-            color: textColor,
-            fontSize: fontSize,
-            fontFamily: "'JetBrains Mono', 'Courier New', monospace",
-            fontWeight: 700,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: '6px',
-            position: 'relative',
-            overflow: 'hidden',
-            boxShadow: flipping[i]
-              ? `0 0 14px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255,255,255,0.08)`
-              : `inset 0 1px 0 rgba(255,255,255,0.05), 0 2px 6px rgba(0,0,0,0.5)`,
-            transition: 'box-shadow 0.15s ease',
-            transform: flipping[i] ? 'rotateX(5deg)' : 'rotateX(0deg)',
-            userSelect: 'none',
-          }}
-        >
-          {/* Mechanical Center divider split */}
+      <div
+        ref={containerRef}
+        className="split-flap-container"
+        style={{
+          display: 'inline-flex',
+          flexWrap: 'nowrap',
+          whiteSpace: 'nowrap',
+          gap: 'clamp(2px, 0.5vw, 6px)',
+          justifyContent: 'center',
+          alignItems: 'center',
+          perspective: '600px',
+          transform: scale < 1 ? `scale(${scale})` : 'none',
+          transformOrigin: 'center center',
+          transition: 'transform 0.2s ease-out',
+        }}
+      >
+        {tiles.map((char, i) => (
           <div
+            key={i}
+            className="split-flap-tile"
             style={{
-              position: 'absolute',
-              top: '50%',
-              left: 0,
-              right: 0,
-              height: '1px',
-              background: 'rgba(0,0,0,0.6)',
-              zIndex: 2,
-              pointerEvents: 'none',
-            }}
-          />
-          <span
-            style={{
+              width: 'clamp(15px, 4.5vw, 42px)',
+              height: 'clamp(23px, 6.5vw, 60px)',
+              backgroundColor: tileColor,
+              color: textColor,
+              fontSize: 'clamp(10px, 3.1vw, 26px)',
+              fontFamily: "'JetBrains Mono', 'Courier New', monospace",
+              fontWeight: 700,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 'clamp(3px, 0.7vw, 7px)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
               position: 'relative',
-              zIndex: 1,
-              textShadow: '0 1px 3px rgba(0,0,0,0.6)',
-              lineHeight: 1,
+              overflow: 'hidden',
+              flexShrink: 0,
+              boxShadow: flipping[i]
+                ? `0 0 14px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255,255,255,0.08)`
+                : `inset 0 1px 0 rgba(255,255,255,0.05), 0 2px 6px rgba(0,0,0,0.5)`,
+              transition: 'box-shadow 0.15s ease',
+              transform: flipping[i] ? 'rotateX(5deg)' : 'rotateX(0deg)',
+              userSelect: 'none',
             }}
           >
-            {char}
-          </span>
-        </div>
-      ))}
+            {/* Mechanical Center divider split */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: 0,
+                right: 0,
+                height: '1px',
+                background: 'rgba(0,0,0,0.65)',
+                borderBottom: '1px solid rgba(255,255,255,0.04)',
+                zIndex: 2,
+                pointerEvents: 'none',
+              }}
+            />
+            <span
+              style={{
+                position: 'relative',
+                zIndex: 1,
+                textShadow: '0 1px 3px rgba(0,0,0,0.7)',
+                lineHeight: 1,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              {char}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
