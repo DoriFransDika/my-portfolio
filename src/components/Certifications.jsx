@@ -15,6 +15,7 @@ import {
   MessageSquareQuote,
   CheckCircle2
 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const brandConfigs = {
   orange: {
@@ -143,6 +144,7 @@ const certificatesData = [
 ];
 
 export default function Certifications() {
+  const { t } = useLanguage();
   const [activeModalCert, setActiveModalCert] = useState(null);
 
   return (
@@ -156,18 +158,24 @@ export default function Certifications() {
         <div className="flex flex-col items-start mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/25 text-xs font-mono text-gold uppercase tracking-wider mb-3">
             <Award className="w-3.5 h-3.5" />
-            <span>04 / SERTIFIKASI PROFESIONAL</span>
+            <span>{t.certifications.tag}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight">
-            Sertifikasi Resmi <span className="text-gold-gradient">Terverifikasi</span>
+            {t.certifications.headingStart} <span className="text-gold-gradient">{t.certifications.headingGradient}</span>
           </h2>
           <p className="mt-4 text-base sm:text-lg text-neutral-400 max-w-2xl font-normal">
-            Kredensial dan kompetensi profesional dari program resmi industri terkemuka.
+            {t.certifications.subtitle}
           </p>
         </div>
 
-        {/* Grid Sertifikat: Mobile 1 Kolom ringkas, Desktop 3 Kolom lengkap dengan Brand Styling asli */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        {/* Hint geser di Mobile */}
+        <div className="flex md:hidden items-center gap-1.5 text-[11px] font-mono text-gold/80 mb-3">
+          <span>{t.certifications.swipeHint}</span>
+          <span className="animate-pulse">→</span>
+        </div>
+
+        {/* Carousel di Mobile (flex overflow-x-auto snap-x), Grid di Desktop (md:grid-cols-2 lg:grid-cols-3) */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 md:pb-0 md:overflow-visible md:snap-none no-scrollbar">
           {certificatesData.map((cert) => {
             const brand = brandConfigs[cert.accentKey] || brandConfigs.amber;
             const Icon = cert.icon;
@@ -175,7 +183,7 @@ export default function Certifications() {
             return (
               <div
                 key={cert.id}
-                className={`group relative rounded-2xl glass-card p-6 border border-white/10 ${brand.hoverBorder} transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl flex flex-col justify-between overflow-hidden border-t-2 ${brand.borderTop}`}
+                className={`group relative rounded-2xl glass-card p-6 border border-white/10 ${brand.hoverBorder} transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl flex flex-col justify-between overflow-hidden border-t-2 ${brand.borderTop} w-[85%] min-w-[280px] shrink-0 snap-center md:w-auto md:min-w-0 md:shrink md:snap-align-none`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -202,7 +210,7 @@ export default function Certifications() {
                       onClick={() => setActiveModalCert(cert)}
                       className="text-xs font-bold text-gold hover:text-gold-200"
                     >
-                      Lihat Rincian Detail →
+                      {t.certifications.viewDetail}
                     </button>
                   </div>
 
@@ -231,10 +239,10 @@ export default function Certifications() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-gold hover:text-gold-200 transition-colors"
                   >
-                    <span>Buka Sertifikat</span>
+                    <span>{t.certifications.openCert}</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
-                  <span className="text-[10px] font-mono text-neutral-500">RESMI</span>
+                  <span className="text-[10px] font-mono text-neutral-500">{t.certifications.officialBadge}</span>
                 </div>
               </div>
             );

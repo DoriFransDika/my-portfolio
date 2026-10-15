@@ -12,6 +12,7 @@ import {
 import { WhatsappIcon, LinkedinIcon, GithubIcon, InstagramIcon } from './BrandIcons';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLanguage } from '../context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,6 +55,7 @@ const socialLinks = [
 ];
 
 export default function Contact() {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const headlineRef = useRef(null);
 
@@ -132,25 +134,25 @@ export default function Contact() {
           <div ref={headlineRef} className="lg:col-span-5 flex flex-col items-start">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/25 text-xs font-mono text-gold uppercase tracking-wider mb-4">
               <MessageSquare className="w-3.5 h-3.5" />
-              <span>06 / HUBUNGI SAYA</span>
+              <span>{t.contact.tag}</span>
             </div>
             
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight mb-4">
-              Mari Membangun <span className="text-gold-gradient">Sesuatu</span> Bersama.
+              {t.contact.headingStart} <span className="text-gold-gradient">{t.contact.headingGradient}</span> {t.contact.headingEnd}
             </h2>
             
             <p className="text-sm sm:text-base text-neutral-400 leading-relaxed mb-8">
-              Terbuka untuk peluang kerja penuh waktu, proyek konsultasi lepas (freelance), maupun diskusi seputar pengembangan teknologi web.
+              {t.contact.subtitle}
             </p>
 
-            {/* Quick Copy Email Banner */}
-            <div className="w-full p-4 rounded-xl glass-card border border-gold/20 mb-6 flex items-center justify-between gap-3">
+            {/* Quick Copy Email Banner (Khusus Desktop lg:, di Mobile berada di bawah formulir kirim pesan) */}
+            <div className="hidden lg:flex w-full p-4 rounded-xl glass-card border border-gold/20 mb-6 items-center justify-between gap-3">
               <div className="flex items-center gap-3 min-w-0">
                 <div className="p-2 rounded-lg bg-gold/10 text-gold border border-gold/20 flex-shrink-0">
                   <Mail className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider">Email Utama</div>
+                  <div className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider">{t.contact.primaryEmailLabel}</div>
                   <div className="text-xs sm:text-sm font-mono text-white truncate">dorifransdikaa@gmail.com</div>
                 </div>
               </div>
@@ -162,19 +164,19 @@ export default function Contact() {
                 {copiedEmail ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-400">Tersalin</span>
+                    <span className="text-emerald-400">{t.contact.copied}</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    <span>Salin</span>
+                    <span>{t.contact.copy}</span>
                   </>
                 )}
               </button>
             </div>
 
-            {/* Social Links List */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
+            {/* Social Links List: Tampil di Desktop lg: (di Mobile berada di bawah formulir kirim pesan) */}
+            <div className="hidden lg:grid grid-cols-2 gap-3 w-full">
               {socialLinks.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -204,16 +206,16 @@ export default function Contact() {
             <div className="p-6 sm:p-8 rounded-2xl glass-card border border-white/10 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-48 h-48 bg-gold/5 rounded-full blur-2xl pointer-events-none" />
 
-              <h3 className="text-xl font-bold font-display text-white mb-2">Kirim Pesan Langsung</h3>
+              <h3 className="text-xl font-bold font-display text-white mb-2">{t.contact.directMessageTitle}</h3>
               <p className="text-xs sm:text-sm text-neutral-400 mb-6">
-                Silakan tinggalkan pesan, pertanyaan, atau tawaran kolaborasi melalui formulir di bawah ini.
+                {t.contact.directMessageSubtitle}
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="name" className="block text-xs font-mono text-neutral-300 mb-1.5 uppercase tracking-wider">
-                      Nama Lengkap *
+                      {t.contact.fullName}
                     </label>
                     <input
                       type="text"
@@ -222,13 +224,13 @@ export default function Contact() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Nama Anda"
+                      placeholder={t.contact.fullNamePlaceholder}
                       className="w-full px-4 py-3 rounded-xl bg-dark-900 border border-white/10 text-white placeholder-neutral-600 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all"
                     />
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-xs font-mono text-neutral-300 mb-1.5 uppercase tracking-wider">
-                      Alamat Email *
+                      {t.contact.email}
                     </label>
                     <input
                       type="email"
@@ -237,7 +239,7 @@ export default function Contact() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="email@domain.com"
+                      placeholder={t.contact.emailPlaceholder}
                       className="w-full px-4 py-3 rounded-xl bg-dark-900 border border-white/10 text-white placeholder-neutral-600 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all"
                     />
                   </div>
@@ -245,7 +247,7 @@ export default function Contact() {
 
                 <div>
                   <label htmlFor="message" className="block text-xs font-mono text-neutral-300 mb-1.5 uppercase tracking-wider">
-                    Pesan Anda *
+                    {t.contact.message}
                   </label>
                   <textarea
                     id="message"
@@ -254,7 +256,7 @@ export default function Contact() {
                     required
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tuliskan pesan atau gambaran projek Anda di sini..."
+                    placeholder={t.contact.messagePlaceholder}
                     className="w-full px-4 py-3 rounded-xl bg-dark-900 border border-white/10 text-white placeholder-neutral-600 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all resize-none"
                   ></textarea>
                 </div>
@@ -265,16 +267,75 @@ export default function Contact() {
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl text-sm font-bold uppercase tracking-wider text-dark-950 bg-gradient-to-r from-gold-300 via-gold to-amber-500 hover:brightness-110 shadow-lg shadow-gold/25 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 cursor-pointer"
                 >
                   <Send className="w-4 h-4 stroke-[2.5]" />
-                  <span>{isSubmitting ? 'Mengirim Pesan...' : 'Kirim Pesan'}</span>
+                  <span>{isSubmitting ? t.contact.sendingBtn : t.contact.sendBtn}</span>
                 </button>
               </form>
 
               {submitted && (
                 <div className="mt-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm flex items-center gap-2.5">
                   <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
-                  <span>Pesan Anda telah berhasil dikirim! Terima kasih atas kontak Anda.</span>
+                  <span>{t.contact.successMsg}</span>
                 </div>
               )}
+
+              {/* Kontak Langsung Khusus Mobile: Email Utama & Logo Media Sosial (di bawah tombol formulir kirim pesan) */}
+              <div className="mt-8 pt-6 border-t border-white/10 lg:hidden space-y-4">
+                {/* 1. Quick Copy Email Banner di Mobile (di atas logo media sosial) */}
+                <div className="w-full p-3 sm:p-4 rounded-xl glass-card border border-gold/20 flex items-center justify-between gap-2.5">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="p-2 rounded-lg bg-gold/10 text-gold border border-gold/20 flex-shrink-0">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[9px] font-mono text-neutral-400 uppercase tracking-wider">{t.contact.primaryEmailLabel}</div>
+                      <div className="text-xs sm:text-sm font-mono text-white truncate">dorifransdikaa@gmail.com</div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleCopyEmail}
+                    className="px-2.5 py-1.5 rounded-lg text-xs font-mono font-medium bg-white/5 hover:bg-gold/15 text-neutral-300 hover:text-gold border border-white/10 hover:border-gold/30 transition-all flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
+                  >
+                    {copiedEmail ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <span className="text-emerald-400 text-xs">{t.contact.copied}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span className="text-xs">{t.contact.copy}</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* 2. Logo-logo Akun Media Sosial */}
+                <div>
+                  <div className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 mb-2.5 text-center">
+                    {t.contact.connectVia}
+                  </div>
+                  <div className="grid grid-cols-5 gap-2 w-full">
+                    {socialLinks.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title={item.name}
+                          className={`group flex items-center justify-center p-2.5 rounded-xl glass-card border border-white/10 ${item.color} transition-all duration-300 active:scale-95`}
+                        >
+                          <div className="w-9 h-9 rounded-lg bg-dark-800 border border-white/10 flex items-center justify-center text-neutral-300 group-hover:text-gold group-hover:border-gold/30 transition-colors flex-shrink-0">
+                            <Icon className="w-4 h-4" />
+                          </div>
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

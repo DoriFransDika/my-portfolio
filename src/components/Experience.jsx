@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Briefcase, Calendar, MapPin, CheckCircle, ArrowUpRight, X } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLanguage } from '../context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,6 +46,7 @@ const experiences = [
 ];
 
 export default function Experience() {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const timelineRef = useRef(null);
   const [activeModalExp, setActiveModalExp] = useState(null);
@@ -89,19 +91,28 @@ export default function Experience() {
         <div className="flex flex-col items-start mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/25 text-xs font-mono text-gold uppercase tracking-wider mb-3">
             <Briefcase className="w-3.5 h-3.5" />
-            <span>03 / PENGALAMAN KERJA</span>
+            <span>{t.experience.tag}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight">
-            Pengalaman Industri &amp; <span className="text-gold-gradient">Mentoring</span>
+            {t.experience.headingStart} <span className="text-gold-gradient">{t.experience.headingGradient}</span>
           </h2>
         </div>
 
-        {/* Timeline / Experience Cards Container */}
-        <div ref={timelineRef} className="space-y-6 sm:space-y-8">
+        {/* Hint geser di Mobile */}
+        <div className="flex md:hidden items-center gap-1.5 text-[11px] font-mono text-gold/80 mb-3">
+          <span>{t.experience.swipeHint}</span>
+          <span className="animate-pulse">→</span>
+        </div>
+
+        {/* Timeline / Experience Cards: Mobile Horizontal Slide / Carousel, Desktop List Timeline */}
+        <div
+          ref={timelineRef}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 md:block md:space-y-6 lg:space-y-8 md:pb-0 md:overflow-visible md:snap-none no-scrollbar"
+        >
           {experiences.map((exp) => (
             <div
               key={exp.id}
-              className="exp-card group relative p-5 sm:p-8 rounded-2xl glass-card border border-white/10 hover:border-gold/40 transition-all duration-500 shadow-xl flex flex-col md:flex-row gap-5 md:gap-8 items-start"
+              className="exp-card group relative p-5 sm:p-8 rounded-2xl glass-card border border-white/10 hover:border-gold/40 transition-all duration-500 shadow-xl flex flex-col md:flex-row gap-5 md:gap-8 items-start w-[85%] min-w-[280px] shrink-0 snap-center md:w-full md:min-w-0 md:shrink md:snap-align-none"
             >
               {/* Thumbnail Image */}
               <div className="w-full md:w-56 h-36 md:h-44 rounded-xl overflow-hidden bg-dark-950 border border-white/10 flex-shrink-0 relative">
@@ -147,7 +158,7 @@ export default function Experience() {
                       onClick={() => setActiveModalExp(exp)}
                       className="inline-flex items-center gap-1 text-xs font-bold text-gold hover:text-gold-200"
                     >
-                      <span>Lihat Rincian Tugas &amp; Stack</span>
+                      <span>{t.experience.viewDetail}</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -209,7 +220,7 @@ export default function Experience() {
               <p className="text-sm text-gold font-medium">{activeModalExp.company} · {activeModalExp.location}</p>
             </div>
             <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-4">{activeModalExp.summary}</p>
-            <h4 className="text-xs font-mono uppercase tracking-wider text-gold mb-2">Tugas &amp; Tanggung Jawab:</h4>
+            <h4 className="text-xs font-mono uppercase tracking-wider text-gold mb-2">{t.experience.tasksTitle}</h4>
             <ul className="space-y-2 mb-5">
               {activeModalExp.tasks.map((t, idx) => (
                 <li key={idx} className="flex items-start gap-2 text-xs text-neutral-300">

@@ -105,3 +105,12 @@
 .horizontal-scroll-section {
   overscroll-behavior: none;
 }
+
+/* Hide scrollbar utility for clean mobile carousel swipe */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

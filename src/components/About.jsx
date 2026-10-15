@@ -2,10 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import { Award, GraduationCap, BrainCircuit, Target, CheckCircle2, BookOpen } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLanguage } from '../context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function About() {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const textContentRef = useRef(null);
   const galleryRef = useRef(null);
@@ -73,10 +75,10 @@ export default function About() {
         <div className="flex flex-col items-start mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/25 text-xs font-mono text-gold uppercase tracking-wider mb-3">
             <GraduationCap className="w-3.5 h-3.5" />
-            <span>01 / TENTANG SAYA</span>
+            <span>{t.about.tag}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight">
-            Dedikasi Menuju <span className="text-gold-gradient">Keunggulan Akademik</span> &amp; Rekayasa Perangkat Lunak.
+            {t.about.headingStart} <span className="text-gold-gradient">{t.about.headingGradient}</span>.
           </h2>
         </div>
 
@@ -84,7 +86,7 @@ export default function About() {
         <div className="block lg:hidden mb-8">
           <div className="p-5 rounded-2xl glass-card border border-gold/20 mb-4">
             <p className="text-sm text-neutral-300 leading-relaxed mb-4">
-              "Saya <strong className="text-white font-semibold">Dori Frans Dika</strong>, Fresh Graduate S1 Teknik Informatika Institut Teknologi Padang yang lulus predikat <span className="text-gold font-semibold">Cumlaude dengan IPK 3.68</span>. Memiliki passion mendalam dalam pengembangan web full-stack, analisis data, dan peramalan <span className="text-amber-400 italic">(forecasting)</span>."
+              {t.about.narrative}
             </p>
             <div className="flex flex-wrap gap-1.5">
               <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-[10px] font-semibold bg-gold/15 text-gold border border-gold/30">
@@ -119,43 +121,47 @@ export default function About() {
             <div className="p-6 sm:p-8 rounded-2xl glass-card border border-white/10 relative">
               <div className="absolute top-0 right-0 translate-x-1 -translate-y-1 w-3 h-3 border-t-2 border-r-2 border-gold pointer-events-none" />
               <p className="text-base sm:text-lg text-neutral-300 leading-relaxed font-normal">
-                "Saya <strong className="text-white font-semibold">Dori Frans Dika</strong>, Fresh Graduate S1 Teknik Informatika Institut Teknologi Padang yang lulus predikat <span className="text-gold font-semibold">Cumlaude dengan IPK 3.68</span>. Memiliki passion mendalam dalam pengembangan web full-stack, analisis data, dan peramalan <span className="text-amber-400 italic">(forecasting)</span>. Aktif mengeksplorasi teknologi baru, adaptif, dan terbiasa bekerja dalam tim untuk menghasilkan solusi digital yang efisien."
+                {t.about.narrative}
               </p>
             </div>
 
-            {/* Quick Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Quick Stats Grid: 2 Kolom 1 Baris di Mobile */}
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-2.5 sm:gap-4">
               
               {/* Stat 1: Cumlaude */}
-              <div className="p-5 rounded-2xl bg-dark-800/60 border border-gold/20 hover:border-gold/40 transition-colors">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-2.5 rounded-xl bg-gold/15 text-gold border border-gold/30">
-                    <Award className="w-5 h-5" />
+              <div className="p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-dark-800/60 border border-gold/20 hover:border-gold/40 transition-colors flex flex-col justify-between">
+                <div>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3 mb-1.5 sm:mb-2">
+                    <div className="p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-gold/15 text-gold border border-gold/30 w-fit">
+                      <Award className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] sm:text-xs uppercase font-mono text-neutral-400 block leading-tight">{t.about.statAcademicTitle}</span>
+                      <h4 className="text-base sm:text-xl font-bold font-mono text-white">IPK 3.68</h4>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-xs uppercase font-mono text-neutral-400">Prestasi Akademik</span>
-                    <h4 className="text-xl font-bold font-mono text-white">IPK 3.68</h4>
-                  </div>
+                  <p className="text-[10px] sm:text-xs text-neutral-300 leading-snug line-clamp-2 sm:line-clamp-none">
+                    {t.about.statAcademicDesc}
+                  </p>
                 </div>
-                <p className="text-xs text-neutral-300">
-                  Lulus predikat <strong className="text-gold">Cumlaude</strong> S1 Teknik Informatika - Institut Teknologi Padang.
-                </p>
               </div>
 
               {/* Stat 2: Focus Area */}
-              <div className="p-5 rounded-2xl bg-dark-800/60 border border-white/10 hover:border-gold/40 transition-colors">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-2.5 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30">
-                    <BrainCircuit className="w-5 h-5" />
+              <div className="p-3 sm:p-5 rounded-xl sm:rounded-2xl bg-dark-800/60 border border-white/10 hover:border-gold/40 transition-colors flex flex-col justify-between">
+                <div>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3 mb-1.5 sm:mb-2">
+                    <div className="p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30 w-fit">
+                      <BrainCircuit className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] sm:text-xs uppercase font-mono text-neutral-400 block leading-tight">{t.about.statFocusTitle}</span>
+                      <h4 className="text-sm sm:text-lg font-bold text-white line-clamp-1 sm:line-clamp-none">{t.about.statFocusSub}</h4>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-xs uppercase font-mono text-neutral-400">Fokus Keahlian</span>
-                    <h4 className="text-lg font-bold text-white">Full-Stack &amp; Data</h4>
-                  </div>
+                  <p className="text-[10px] sm:text-xs text-neutral-300 leading-snug line-clamp-2 sm:line-clamp-none">
+                    {t.about.statFocusDesc}
+                  </p>
                 </div>
-                <p className="text-xs text-neutral-300">
-                  Pengembangan web modern (React, Laravel) &amp; analisis data time-series forecasting.
-                </p>
               </div>
 
             </div>
@@ -164,31 +170,25 @@ export default function About() {
             <div className="p-6 rounded-2xl bg-dark-800/40 border border-white/10">
               <h4 className="text-sm font-mono uppercase tracking-wider text-gold mb-4 flex items-center gap-2">
                 <Target className="w-4 h-4 text-gold" />
-                <span>Soft Skills &amp; Karakter Kerja</span>
+                <span>{t.about.softSkillsTitle}</span>
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="flex items-center gap-2 text-xs font-medium text-neutral-200 bg-white/5 px-3 py-2 rounded-lg border border-white/5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-                  <span>Problem Solving</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs font-medium text-neutral-200 bg-white/5 px-3 py-2 rounded-lg border border-white/5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-                  <span>Team Collaboration</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs font-medium text-neutral-200 bg-white/5 px-3 py-2 rounded-lg border border-white/5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-                  <span>Technical Mentoring</span>
-                </div>
+                {t.about.softSkills.map((skill) => (
+                  <div key={skill} className="flex items-center gap-2 text-xs font-medium text-neutral-200 bg-white/5 px-3 py-2 rounded-lg border border-white/5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+                    <span>{skill}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
           </div>
 
           {/* Right Column: Photo Gallery Grid / Documentation Stack dengan Animasi Asli */}
-          <div ref={galleryRef} className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch">
+          <div ref={galleryRef} className="lg:col-span-6 grid grid-cols-2 sm:grid-cols-2 gap-2 sm:gap-6 items-stretch">
             
             {/* Card 1: Foto Wisuda / Cumlaude */}
-            <div className="gallery-card group relative rounded-2xl overflow-hidden glass-card border border-gold/30 hover:border-gold transition-all duration-500 shadow-xl flex flex-col">
+            <div className="gallery-card group relative rounded-xl sm:rounded-2xl overflow-hidden glass-card border border-gold/30 hover:border-gold transition-all duration-500 shadow-xl flex flex-col">
               <div className="relative aspect-[4/5] overflow-hidden bg-dark-950">
                 <img
                   src="/images/about-cumlaude.jpg"
@@ -196,21 +196,21 @@ export default function About() {
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter contrast-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent" />
-                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-dark-950/80 backdrop-blur-md border border-gold/40 text-[11px] font-mono text-gold flex items-center gap-1.5">
-                  <Award className="w-3 h-3 text-gold" />
-                  <span>Cumlaude Moment</span>
+                <div className="absolute top-2 left-2 sm:top-3 sm:left-3 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-dark-950/80 backdrop-blur-md border border-gold/40 text-[9px] sm:text-[11px] font-mono text-gold flex items-center gap-1 sm:gap-1.5">
+                  <Award className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-gold flex-shrink-0" />
+                  <span>{t.about.card1Badge}</span>
                 </div>
               </div>
-              <div className="p-4 bg-dark-900/90 border-t border-white/10 flex-1 flex flex-col justify-between">
+              <div className="p-2.5 sm:p-4 bg-dark-900/90 border-t border-white/10 flex-1 flex flex-col justify-between">
                 <div>
-                  <h4 className="text-sm font-bold text-white group-hover:text-gold transition-colors">
-                    Dokumentasi Kelulusan S1
+                  <h4 className="text-[11px] sm:text-sm font-bold text-white group-hover:text-gold transition-colors line-clamp-1 sm:line-clamp-none">
+                    {t.about.card1Title}
                   </h4>
-                  <p className="text-xs text-neutral-400 mt-1">
-                    Institut Teknologi Padang — Menyelesaikan studi tepat waktu dengan predikat kehormatan (Cumlaude).
+                  <p className="text-[9px] sm:text-xs text-neutral-400 mt-0.5 sm:mt-1 line-clamp-2 sm:line-clamp-none leading-tight sm:leading-relaxed">
+                    {t.about.card1Desc}
                   </p>
                 </div>
-                <div className="mt-3 pt-2 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-gold">
+                <div className="mt-2 sm:mt-3 pt-1.5 sm:pt-2 border-t border-white/5 flex items-center justify-between text-[9px] sm:text-[11px] font-mono text-gold">
                   <span>IPK 3.68</span>
                   <span className="text-neutral-500">2020 - 2024</span>
                 </div>
@@ -218,7 +218,7 @@ export default function About() {
             </div>
 
             {/* Card 2: Foto Aktivitas Kampus */}
-            <div className="gallery-card group relative rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-gold/50 transition-all duration-500 shadow-xl flex flex-col sm:translate-y-6">
+            <div className="gallery-card group relative rounded-xl sm:rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-gold/50 transition-all duration-500 shadow-xl flex flex-col sm:translate-y-6">
               <div className="relative aspect-[4/5] overflow-hidden bg-dark-950">
                 <img
                   src="/images/about-campus.jpg"
@@ -226,21 +226,21 @@ export default function About() {
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter contrast-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent" />
-                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-dark-950/80 backdrop-blur-md border border-white/20 text-[11px] font-mono text-neutral-200 flex items-center gap-1.5">
-                  <BookOpen className="w-3 h-3 text-amber-400" />
-                  <span>Campus Life &amp; Tech Lab</span>
+                <div className="absolute top-2 left-2 sm:top-3 sm:left-3 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-dark-950/80 backdrop-blur-md border border-white/20 text-[9px] sm:text-[11px] font-mono text-neutral-200 flex items-center gap-1 sm:gap-1.5">
+                  <BookOpen className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-400 flex-shrink-0" />
+                  <span>{t.about.card2Badge}</span>
                 </div>
               </div>
-              <div className="p-4 bg-dark-900/90 border-t border-white/10 flex-1 flex flex-col justify-between">
+              <div className="p-2.5 sm:p-4 bg-dark-900/90 border-t border-white/10 flex-1 flex flex-col justify-between">
                 <div>
-                  <h4 className="text-sm font-bold text-white group-hover:text-gold transition-colors">
-                    Eksplorasi &amp; Kolaborasi Kampus
+                  <h4 className="text-[11px] sm:text-sm font-bold text-white group-hover:text-gold transition-colors line-clamp-1 sm:line-clamp-none">
+                    {t.about.card2Title}
                   </h4>
-                  <p className="text-xs text-neutral-400 mt-1">
-                    Aktif dalam proyek riset peramalan data, praktikum rekayasa perangkat lunak, dan diskusi teknologi.
+                  <p className="text-[9px] sm:text-xs text-neutral-400 mt-0.5 sm:mt-1 line-clamp-2 sm:line-clamp-none leading-tight sm:leading-relaxed">
+                    {t.about.card2Desc}
                   </p>
                 </div>
-                <div className="mt-3 pt-2 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-amber-400">
+                <div className="mt-2 sm:mt-3 pt-1.5 sm:pt-2 border-t border-white/5 flex items-center justify-between text-[9px] sm:text-[11px] font-mono text-amber-400">
                   <span>Lab Informatika</span>
                   <span className="text-neutral-500">Padang</span>
                 </div>

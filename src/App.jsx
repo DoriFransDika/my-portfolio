@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import Preloader from './components/Preloader';
 import { useLenis } from './hooks/useLenis';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { LanguageProvider } from './context/LanguageContext';
 
 export default function App() {
   const [showPreloader, setShowPreloader] = useState(true);
@@ -44,27 +45,29 @@ export default function App() {
   }, [showPreloader]);
 
   return (
-    <div className="relative min-h-screen bg-[#0d0d0d] text-[#e5e5e5] selection:bg-gold/30 selection:text-gold-200">
-      {/* Intro Preloader / Splash Screen */}
-      {showPreloader && <Preloader onFinished={handlePreloaderFinished} />}
+    <LanguageProvider>
+      <div className="relative min-h-screen bg-[#0d0d0d] text-[#e5e5e5] selection:bg-gold/30 selection:text-gold-200">
+        {/* Intro Preloader / Splash Screen */}
+        {showPreloader && <Preloader onFinished={handlePreloaderFinished} />}
 
-      {/* Top Floating Glassmorphism Navbar */}
-      <Navbar />
+        {/* Top Floating Glassmorphism Navbar */}
+        <Navbar />
 
-      {/* Main Single-Page Content Sections */}
-      <main>
-        <Hero />
-        <About />
-        <Education />
-        <Skills />
-        <Certifications />
-        <Experience />
-        <Projects />
-        <Contact />
-      </main>
+        {/* Main Single-Page Content Sections */}
+        <main>
+          <Hero />
+          <About />
+          <Education />
+          <Skills />
+          <Certifications />
+          <Experience />
+          <Projects />
+          <Contact />
+        </main>
 
-      {/* Footer with Running Marquee & Copyright */}
-      <Footer />
-    </div>
+        {/* Footer with Running Marquee & Copyright */}
+        <Footer />
+      </div>
+    </LanguageProvider>
   );
 }

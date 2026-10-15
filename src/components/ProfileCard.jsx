@@ -56,7 +56,7 @@ export default function ProfileCard({
     setGlowPos({ x: 50, y: 50 });
   }, []);
 
-  const displayHandle = handle.startsWith('@') ? handle : `@${handle}`;
+  const displayHandle = handle;
 
   return (
     <div
@@ -119,7 +119,11 @@ export default function ProfileCard({
               {name}
             </h3>
             <p className="text-sm font-sans font-medium text-amber-400">{title}</p>
-            <p className="text-xs font-mono text-zinc-500">{displayHandle}</p>
+            {displayHandle && (
+              <p className="text-xs font-mono font-semibold tracking-wider text-amber-300/90 uppercase">
+                {displayHandle}
+              </p>
+            )}
           </div>
 
           {/* Decorative Divider */}

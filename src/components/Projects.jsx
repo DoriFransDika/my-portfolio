@@ -12,6 +12,7 @@ import {
 import { GithubIcon } from './BrandIcons';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLanguage } from '../context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -151,6 +152,7 @@ const projectsData = [
 ];
 
 export default function Projects() {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -196,15 +198,15 @@ export default function Projects() {
         <div className="flex items-center justify-between mb-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/25 text-xs font-mono text-gold uppercase tracking-wider">
             <FolderGit2 className="w-3.5 h-3.5" />
-            <span>05 / PORTOFOLIO KARYA</span>
+            <span>{t.projects.tag}</span>
           </div>
-          <span className="text-[10px] font-mono text-gold md:hidden">← Swipe Proyek →</span>
+          <span className="text-[10px] font-mono text-gold md:hidden">{t.projects.swipeHint}</span>
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight mb-4">
-          Projek Pilihan &amp; <span className="text-gold-gradient">Studi Kasus</span>
+          {t.projects.headingStart} <span className="text-gold-gradient">{t.projects.headingGradient}</span>
         </h2>
         <p className="text-sm sm:text-base text-neutral-400 max-w-2xl font-normal leading-relaxed mb-10 sm:mb-14">
-          Kumpulan implementasi sistem nyata yang mengintegrasikan peramalan data, arsitektur web modern, dan antarmuka responsif.
+          {t.projects.subtitle}
         </p>
 
         {/* ─── RESPONSIVE CONTAINER:
@@ -270,7 +272,7 @@ export default function Projects() {
                   onClick={() => setSelectedProject(project)}
                   className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-gold hover:text-gold-200 transition-colors cursor-pointer"
                 >
-                  <span>Lihat Detail</span>
+                  <span>{t.projects.viewDetail}</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <div className="flex items-center gap-3">
@@ -314,7 +316,7 @@ export default function Projects() {
           >
             <button
               onClick={() => setSelectedProject(null)}
-              aria-label="Tutup"
+              aria-label={t.projects.modalClose}
               className="absolute top-4 right-4 p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
             >
               <X className="w-5 h-5" />
@@ -339,7 +341,7 @@ export default function Projects() {
             </div>
 
             <div className="mb-5">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-gold mb-2">Deskripsi Lengkap</h4>
+              <h4 className="text-xs font-mono uppercase tracking-wider text-gold mb-2">{t.projects.modalDescTitle}</h4>
               <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
                 {selectedProject.fullDescription}
               </p>
@@ -347,7 +349,7 @@ export default function Projects() {
 
             {selectedProject.highlights && (
               <div className="mb-5">
-                <h4 className="text-xs font-mono uppercase tracking-wider text-gold mb-2">Fitur &amp; Sorotan Utama</h4>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-gold mb-2">{t.projects.modalHighlightsTitle}</h4>
                 <ul className="text-xs sm:text-sm text-neutral-400 space-y-1.5 list-disc list-inside">
                   {selectedProject.highlights.map((h) => (
                     <li key={h}>{h}</li>
@@ -376,7 +378,7 @@ export default function Projects() {
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-dark-950 bg-gradient-to-r from-gold via-yellow-400 to-amber-500 hover:brightness-110 shadow-lg shadow-gold/25 transition-all hover:scale-105 active:scale-95"
                 >
                   <ExternalLink className="w-4 h-4 stroke-[2.5]" />
-                  <span>Live Demo</span>
+                  <span>{t.projects.liveDemo}</span>
                 </a>
               )}
               {selectedProject.githubUrl && (
@@ -387,7 +389,7 @@ export default function Projects() {
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold uppercase tracking-wider text-white bg-dark-800 hover:bg-dark-700 border border-white/10 hover:border-gold/50 shadow-sm transition-all hover:scale-105 active:scale-95"
                 >
                   <GithubIcon className="w-4 h-4 text-gold" />
-                  <span>Source Code</span>
+                  <span>{t.projects.sourceCode}</span>
                 </a>
               )}
             </div>

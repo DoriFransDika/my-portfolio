@@ -12,10 +12,12 @@ import {
 } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLanguage } from '../context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Education() {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const contentRef = useRef(null);
 
@@ -59,13 +61,13 @@ export default function Education() {
         <div className="flex flex-col items-start mb-16 sm:mb-20">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/25 text-xs font-mono text-gold uppercase tracking-wider mb-3">
             <GraduationCap className="w-3.5 h-3.5" />
-            <span>04 / RIWAYAT PENDIDIKAN</span>
+            <span>{t.education.tag}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight">
-            Perjalanan Akademik & <span className="text-gold-gradient">Skripsi Unggulan</span>
+            {t.education.headingStart} <span className="text-gold-gradient">{t.education.headingGradient}</span>
           </h2>
           <p className="mt-4 text-base sm:text-lg text-neutral-400 max-w-2xl font-normal">
-            Pondasi keilmuan komputer yang kuat dengan rekam jejak kelulusan predikat kehormatan tertinggi (Cumlaude).
+            {t.education.subtitle}
           </p>
         </div>
 
@@ -83,40 +85,30 @@ export default function Education() {
                 <div className="flex flex-wrap items-center gap-3 mb-4">
                   <span className="px-3.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono text-xs uppercase tracking-wider flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    Lulus Cumlaude (Dengan Pujian)
+                    {t.education.status}
                   </span>
-                  <span className="text-neutral-400 text-xs font-mono">2020 — 2024</span>
+                  <span className="text-neutral-400 text-xs font-mono">{t.education.period}</span>
                 </div>
 
                 <h3 className="text-2xl sm:text-4xl font-display font-extrabold text-white mb-2 leading-tight">
-                  Institut Teknologi Padang
+                  {t.education.institution}
                 </h3>
                 <h4 className="text-lg sm:text-xl font-medium text-gold mb-6">
-                  S1 Teknik Informatika — Fakultas Teknik
+                  {t.education.major}
                 </h4>
 
                 <p className="text-sm sm:text-base text-neutral-300 leading-relaxed mb-6 font-normal">
-                  Menyelesaikan program sarjana teknik informatika dengan fokus studi rekayasa perangkat lunak, arsitektur komputasi, dan kecerdasan komputasional/peramalan data, meraih indeks prestasi kumulatif <strong className="text-white font-bold">3.68 dari skala 4.00</strong>.
+                  {t.education.description}
                 </p>
 
                 {/* Key Academic Milestones */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-white/10">
-                  <div className="flex items-center gap-2.5 text-xs text-neutral-300">
-                    <CheckCircle2 className="w-4 h-4 text-gold flex-shrink-0" />
-                    <span>Lulus Tepat Waktu (8 Semester)</span>
-                  </div>
-                  <div className="flex items-center gap-2.5 text-xs text-neutral-300">
-                    <CheckCircle2 className="w-4 h-4 text-gold flex-shrink-0" />
-                    <span>Riset Terapan Industri & Skripsi A</span>
-                  </div>
-                  <div className="flex items-center gap-2.5 text-xs text-neutral-300">
-                    <CheckCircle2 className="w-4 h-4 text-gold flex-shrink-0" />
-                    <span>Aktif Proyek Laboratorium Web</span>
-                  </div>
-                  <div className="flex items-center gap-2.5 text-xs text-neutral-300">
-                    <CheckCircle2 className="w-4 h-4 text-gold flex-shrink-0" />
-                    <span>Praktik Kerja Industri Mediatama</span>
-                  </div>
+                  {t.education.milestones?.map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-2.5 text-xs text-neutral-300">
+                      <CheckCircle2 className="w-4 h-4 text-gold flex-shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -126,54 +118,54 @@ export default function Education() {
                   <Award className="w-8 h-8" />
                 </div>
                 <div className="text-xs uppercase font-mono tracking-widest text-gold-300 mb-1">
-                  Indeks Prestasi Kumulatif
+                  {t.education.ipkLabel}
                 </div>
                 <div className="text-5xl sm:text-6xl font-display font-extrabold text-white mb-2 tracking-tight">
                   3.68 <span className="text-xl text-neutral-500 font-mono">/ 4.00</span>
                 </div>
                 <div className="text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full bg-gold/20 text-gold-200 border border-gold/40">
-                  ★ CUMLAUDE HONORS ★
+                  {t.education.honorsBadge}
                 </div>
               </div>
 
             </div>
 
             {/* Skripsi Highlight Box */}
-            <div className="mt-8 pt-8 border-t border-white/10">
-              <div className="p-6 rounded-2xl bg-dark-850/80 border border-white/10">
-                <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-amber-400">
-                    <Binary className="w-4 h-4" />
-                    <span>Fokus Skripsi / Tugas Akhir Sarjana</span>
+            <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-white/10">
+              <div className="p-4 sm:p-6 rounded-2xl bg-dark-850/80 border border-white/10">
+                <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 mb-2.5 sm:mb-3">
+                  <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-mono uppercase tracking-wider text-amber-400">
+                    <Binary className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                    <span>{t.education.thesisTag}</span>
                   </div>
-                  <span className="text-xs font-mono text-neutral-400 bg-white/5 px-2.5 py-1 rounded-md">
-                    Nilai: A (Sangat Memuaskan)
+                  <span className="text-[10px] sm:text-xs font-mono text-neutral-400 bg-white/5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md">
+                    {t.education.thesisGrade}
                   </span>
                 </div>
 
-                <h4 className="text-lg sm:text-xl font-bold font-display text-white mb-3 leading-snug">
-                  "Sistem Peramalan Persediaan Biji Kopi Menggunakan Metode Holt-Winters Exponential Smoothing"
+                <h4 className="text-sm sm:text-lg md:text-xl font-bold font-display text-white mb-2 sm:mb-3 leading-snug">
+                  {t.education.thesisTitle}
                 </h4>
 
-                <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-4">
-                  Riset dan implementasi aplikasi peramalan komprehensif untuk memprediksi stok persediaan biji kopi di masa depan berdasarkan tren musiman historis. Dibangun dengan memadukan mesin komputasi matematis <strong className="text-white">FastAPI (Python)</strong>, logika bisnis <strong className="text-white">Laravel</strong>, dan visualisasi antarmuka dinamis <strong className="text-white">React.js</strong>.
+                <p className="text-[11px] sm:text-xs md:text-sm text-neutral-300 leading-relaxed mb-3 sm:mb-4">
+                  {t.education.thesisDesc}
                 </p>
 
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs font-mono text-neutral-400">Stack Skripsi:</span>
-                  <span className="text-xs px-2.5 py-0.5 rounded bg-gold/15 text-gold-200 border border-gold/30 font-mono">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2 border-t border-white/5">
+                  <span className="text-[10px] sm:text-xs font-mono text-neutral-400">{t.education.thesisStackLabel}</span>
+                  <span className="text-[10px] sm:text-xs px-2 py-0.5 sm:px-2.5 rounded bg-gold/15 text-gold-200 border border-gold/30 font-mono">
                     FastAPI (Python)
                   </span>
-                  <span className="text-xs px-2.5 py-0.5 rounded bg-gold/15 text-gold-200 border border-gold/30 font-mono">
+                  <span className="text-[10px] sm:text-xs px-2 py-0.5 sm:px-2.5 rounded bg-gold/15 text-gold-200 border border-gold/30 font-mono">
                     Laravel
                   </span>
-                  <span className="text-xs px-2.5 py-0.5 rounded bg-gold/15 text-gold-200 border border-gold/30 font-mono">
+                  <span className="text-[10px] sm:text-xs px-2 py-0.5 sm:px-2.5 rounded bg-gold/15 text-gold-200 border border-gold/30 font-mono">
                     React.js
                   </span>
-                  <span className="text-xs px-2.5 py-0.5 rounded bg-gold/15 text-gold-200 border border-gold/30 font-mono">
+                  <span className="text-[10px] sm:text-xs px-2 py-0.5 sm:px-2.5 rounded bg-gold/15 text-gold-200 border border-gold/30 font-mono">
                     Holt-Winters Algorithm
                   </span>
-                  <span className="text-xs px-2.5 py-0.5 rounded bg-gold/15 text-gold-200 border border-gold/30 font-mono">
+                  <span className="text-[10px] sm:text-xs px-2 py-0.5 sm:px-2.5 rounded bg-gold/15 text-gold-200 border border-gold/30 font-mono">
                     MySQL
                   </span>
                 </div>
@@ -184,41 +176,41 @@ export default function Education() {
 
           {/* Certifications & Badges Row */}
           <div>
-            <h4 className="text-sm font-mono uppercase tracking-wider text-neutral-400 mb-4 flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-gold" />
-              <span>Sertifikasi Profesional & Kredensial Pendukung</span>
+            <h4 className="text-xs sm:text-sm font-mono uppercase tracking-wider text-neutral-400 mb-3 sm:mb-4 flex items-center gap-2">
+              <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold flex-shrink-0" />
+              <span>{t.education.certTitle}</span>
             </h4>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-2.5 sm:gap-6">
               
               {/* Cert 1: AWS AI Academy */}
-              <div className="p-6 rounded-2xl glass-card border border-white/10 hover:border-gold/50 transition-all duration-300 flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 flex-shrink-0">
-                  <Sparkles className="w-6 h-6" />
+              <div className="p-3 sm:p-6 rounded-xl sm:rounded-2xl glass-card border border-white/10 hover:border-gold/50 transition-all duration-300 flex flex-col sm:flex-row items-start gap-2.5 sm:gap-4">
+                <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 flex-shrink-0">
+                  <Sparkles className="w-4 h-4 sm:w-6 sm:h-6" />
                 </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h5 className="text-base font-bold text-white">AWS AI Academy</h5>
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Verified</span>
+                <div className="min-w-0">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                    <h5 className="text-xs sm:text-base font-bold text-white line-clamp-1 sm:line-clamp-none">{t.education.awsTitle}</h5>
+                    <span className="text-[9px] sm:text-[10px] font-mono uppercase px-1.5 py-0.5 sm:px-2 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 w-fit">{t.education.awsBadge}</span>
                   </div>
-                  <p className="text-xs text-neutral-400 mt-1">
-                    Amazon Web Services — Pemahaman mendasar infrastruktur Cloud Computing, Machine Learning, dan kecerdasan buatan terapan di AWS.
+                  <p className="text-[10px] sm:text-xs text-neutral-400 mt-1 line-clamp-2 sm:line-clamp-none leading-snug sm:leading-relaxed">
+                    {t.education.awsDesc}
                   </p>
                 </div>
               </div>
 
               {/* Cert 2: Google Skillshop */}
-              <div className="p-6 rounded-2xl glass-card border border-white/10 hover:border-gold/50 transition-all duration-300 flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gold/15 border border-gold/30 flex items-center justify-center text-gold flex-shrink-0">
-                  <ShieldCheck className="w-6 h-6" />
+              <div className="p-3 sm:p-6 rounded-xl sm:rounded-2xl glass-card border border-white/10 hover:border-gold/50 transition-all duration-300 flex flex-col sm:flex-row items-start gap-2.5 sm:gap-4">
+                <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gold/15 border border-gold/30 flex items-center justify-center text-gold flex-shrink-0">
+                  <ShieldCheck className="w-4 h-4 sm:w-6 sm:h-6" />
                 </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h5 className="text-base font-bold text-white">Google Skillshop Certification</h5>
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Certified</span>
+                <div className="min-w-0">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                    <h5 className="text-xs sm:text-base font-bold text-white line-clamp-1 sm:line-clamp-none">{t.education.googleTitle}</h5>
+                    <span className="text-[9px] sm:text-[10px] font-mono uppercase px-1.5 py-0.5 sm:px-2 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 w-fit">{t.education.googleBadge}</span>
                   </div>
-                  <p className="text-xs text-neutral-400 mt-1">
-                    Google — Sertifikasi pemanfaatan ekosistem analitik digital dan optimasi platform data modern dari Google.
+                  <p className="text-[10px] sm:text-xs text-neutral-400 mt-1 line-clamp-2 sm:line-clamp-none leading-snug sm:leading-relaxed">
+                    {t.education.googleDesc}
                   </p>
                 </div>
               </div>

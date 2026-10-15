@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLanguage } from '../context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -82,6 +83,7 @@ const skillCategories = [
 ];
 
 export default function Skills() {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const cardsRef = useRef(null);
 
@@ -125,13 +127,13 @@ export default function Skills() {
         <div className="flex flex-col items-start mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/25 text-xs font-mono text-gold uppercase tracking-wider mb-3">
             <Cpu className="w-3.5 h-3.5" />
-            <span>02 / KEAHLIAN &amp; TEKNOLOGI</span>
+            <span>{t.skills.tag}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight">
-            Tech Stack &amp; <span className="text-gold-gradient">Kompetensi Inti</span>
+            {t.skills.headingStart} <span className="text-gold-gradient">{t.skills.headingGradient}</span>
           </h2>
           <p className="mt-4 text-base sm:text-lg text-neutral-400 max-w-2xl font-normal">
-            Kombinasi kemampuan rekayasa perangkat lunak full-stack, pemodelan analitik data, dan efisiensi operasional tools.
+            {t.skills.subtitle}
           </p>
         </div>
 

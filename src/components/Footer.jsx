@@ -1,7 +1,10 @@
 import React from 'react';
 import { ArrowUp, Heart, Sparkles } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   const handleScrollToTop = () => {
     if (window.lenis) {
       window.lenis.scrollTo(0, { duration: 1.5 });
@@ -10,7 +13,7 @@ export default function Footer() {
     }
   };
 
-  const marqueeText = "DORI FRANS DIKA — FULL STACK DEVELOPER — CUMLAUDE GRADUATE (IPK 3.68) — FASTAPI & LARAVEL — DATA FORECASTING — ";
+  const marqueeText = t.footer.marquee;
 
   return (
     <footer className="relative bg-dark-950 border-t border-white/10 overflow-hidden pt-12 pb-16">
@@ -39,14 +42,14 @@ export default function Footer() {
               <span>Dori Frans Dika<span className="text-gold">.</span></span>
             </h4>
             <p className="text-xs text-neutral-400 mt-1">
-              Fresh Graduate S1 Teknik Informatika (Cumlaude, IPK 3.68) — Institut Teknologi Padang
+              {t.footer.subtitle}
             </p>
           </div>
 
           {/* Quick links & Copyright */}
           <div className="flex flex-col sm:flex-row items-center gap-6 text-xs text-neutral-400 font-mono">
             <div>
-              &copy; {new Date().getFullYear()} Dori Frans Dika. All rights reserved.
+              &copy; {new Date().getFullYear()} Dori Frans Dika. {t.footer.rights}
             </div>
 
             {/* Back to top button */}
@@ -55,7 +58,7 @@ export default function Footer() {
               onClick={handleScrollToTop}
               className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:border-gold/50 text-neutral-300 hover:text-gold transition-all duration-300"
             >
-              <span>Kembali ke Atas</span>
+              <span>{t.footer.backToTop}</span>
               <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-1 transition-transform" />
             </button>
           </div>

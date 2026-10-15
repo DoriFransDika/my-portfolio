@@ -1,16 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Menu, X, ArrowUpRight, Download, Sparkles } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Download, Sparkles, Globe } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const CV_PATH = '/cv-dori-frans-dika.pdf';
 const CV_FILENAME = 'CV-Dori-Frans-Dika.pdf';
-
-const navLinks = [
-  { name: 'Beranda', href: '#beranda' },
-  { name: 'Tentang', href: '#tentang' },
-  { name: 'Keahlian', href: '#keahlian' },
-  { name: 'Project', href: '#proyek' },
-  { name: 'Kontak', href: '#kontak' },
-];
 
 // All section IDs in exact DOM order (top → bottom), mapped to their nav group
 const orderedSections = [
@@ -25,9 +18,18 @@ const orderedSections = [
 ];
 
 export default function Navbar() {
+  const { language, setLanguage, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('#beranda');
+
+  const navLinks = [
+    { name: t.nav.beranda, href: '#beranda' },
+    { name: t.nav.tentang, href: '#tentang' },
+    { name: t.nav.keahlian, href: '#keahlian' },
+    { name: t.nav.project, href: '#proyek' },
+    { name: t.nav.kontak, href: '#kontak' },
+  ];
 
   // Programmatic download that bypasses browser cache
   const handleDownloadCV = useCallback(async (e) => {
@@ -141,14 +143,42 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Action Button: Download CV & Mobile Toggle */}
-        <div className="flex items-center gap-3">
+        {/* Action Buttons: Language Switcher, Download CV & Mobile Toggle */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* Language Switcher Pill (Desktop & Mobile Nav Bar) */}
+          <div className="flex items-center p-0.5 sm:p-1 rounded-full bg-dark-900/90 border border-gold/30 text-xs font-mono backdrop-blur-md shadow-inner">
+            <button
+              type="button"
+              onClick={() => setLanguage('id')}
+              title="Bahasa Indonesia"
+              className={`px-2 py-0.5 rounded-full text-[11px] font-bold transition-all cursor-pointer ${
+                language === 'id'
+                  ? 'bg-gradient-to-r from-gold-300 via-gold to-amber-500 text-dark-950 shadow-sm'
+                  : 'text-neutral-400 hover:text-white'
+              }`}
+            >
+              ID
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage('en')}
+              title="English"
+              className={`px-2 py-0.5 rounded-full text-[11px] font-bold transition-all cursor-pointer ${
+                language === 'en'
+                  ? 'bg-gradient-to-r from-gold-300 via-gold to-amber-500 text-dark-950 shadow-sm'
+                  : 'text-neutral-400 hover:text-white'
+              }`}
+            >
+              EN
+            </button>
+          </div>
+
           <button
             onClick={handleDownloadCV}
             className="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-dark-950 bg-gradient-to-r from-gold-300 via-gold to-amber-500 rounded-full hover:brightness-110 shadow-lg shadow-gold/20 hover:shadow-gold/40 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
           >
             <Download className="w-3.5 h-3.5 stroke-[2.5]" />
-            <span>Download CV</span>
+            <span>{t.nav.downloadCv}</span>
           </button>
 
           {/* Mobile Menu Hamburger */}
@@ -168,12 +198,45 @@ export default function Navbar() {
         <div className="pointer-events-auto fixed inset-x-4 top-20 rounded-2xl glass-nav p-6 border border-gold/30 shadow-2xl flex flex-col gap-3 lg:hidden animate-in fade-in slide-in-from-top-4 duration-300">
           <div className="flex items-center justify-between pb-3 border-b border-white/10">
             <span className="text-xs font-mono text-gold uppercase tracking-widest flex items-center gap-1.5">
-              <Sparkles className="w-3 h-3 text-gold" /> Navigasi Menu
+              <Sparkles className="w-3 h-3 text-gold" /> {t.nav.menuTitle}
             </span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
               Cumlaude 3.68
             </span>
           </div>
+
+          {/* Mobile Language Switcher inside Drawer */}
+          <div className="flex items-center justify-between px-2 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs">
+            <span className="text-neutral-400 font-mono flex items-center gap-1.5">
+              <Globe className="w-3.5 h-3.5 text-gold" />
+              <span>Bahasa / Language:</span>
+            </span>
+            <div className="flex items-center gap-1 p-0.5 rounded-lg bg-dark-900 border border-gold/30 font-mono">
+              <button
+                type="button"
+                onClick={() => setLanguage('id')}
+                className={`px-2 py-0.5 rounded text-[11px] font-bold transition-all ${
+                  language === 'id'
+                    ? 'bg-gold text-dark-950 shadow'
+                    : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                ID
+              </button>
+              <button
+                type="button"
+                onClick={() => setLanguage('en')}
+                className={`px-2 py-0.5 rounded text-[11px] font-bold transition-all ${
+                  language === 'en'
+                    ? 'bg-gold text-dark-950 shadow'
+                    : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                EN
+              </button>
+            </div>
+          </div>
+
           <div className="flex flex-col gap-1">
             {navLinks.map((link) => (
               <a
@@ -194,7 +257,7 @@ export default function Navbar() {
               className="w-full flex items-center justify-center gap-2 py-2.5 text-xs font-semibold uppercase tracking-wider text-dark-950 bg-gradient-to-r from-gold-300 via-gold to-amber-500 rounded-xl hover:brightness-110 shadow-lg shadow-gold/20 cursor-pointer"
             >
               <Download className="w-4 h-4" />
-              <span>Download CV PDF</span>
+              <span>{t.nav.downloadCv} PDF</span>
             </button>
           </div>
         </div>
