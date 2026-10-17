@@ -80,7 +80,7 @@ export default function Experience() {
     <section
       id="pengalaman"
       ref={sectionRef}
-      className="relative py-20 sm:py-28 lg:py-32 bg-dark-900/40 border-t border-white/5 overflow-hidden"
+      className="relative py-20 sm:py-28 lg:py-32 bg-white dark:bg-dark-900/40 border-t border-gray-200 dark:border-white/5 overflow-hidden transition-colors duration-300"
     >
       {/* Ambient background glow */}
       <div className="absolute top-1/2 left-0 w-80 h-80 bg-gold/5 rounded-full blur-[120px] pointer-events-none" />
@@ -89,17 +89,17 @@ export default function Experience() {
         
         {/* Section Header */}
         <div className="flex flex-col items-start mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/25 text-xs font-mono text-gold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 dark:bg-gold/10 border border-amber-500/20 dark:border-gold/25 text-xs font-mono text-amber-700 dark:text-gold uppercase tracking-wider mb-3">
             <Briefcase className="w-3.5 h-3.5" />
             <span>{t.experience.tag}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-gray-900 dark:text-white tracking-tight">
             {t.experience.headingStart} <span className="text-gold-gradient">{t.experience.headingGradient}</span>
           </h2>
         </div>
 
         {/* Hint geser di Mobile */}
-        <div className="flex md:hidden items-center gap-1.5 text-[11px] font-mono text-gold/80 mb-3">
+        <div className="flex md:hidden items-center gap-1.5 text-[11px] font-mono text-amber-700/80 dark:text-gold/80 mb-3">
           <span>{t.experience.swipeHint}</span>
           <span className="animate-pulse">→</span>
         </div>
@@ -112,10 +112,10 @@ export default function Experience() {
           {experiences.map((exp) => (
             <div
               key={exp.id}
-              className="exp-card group relative p-5 sm:p-8 rounded-2xl glass-card border border-white/10 hover:border-gold/40 transition-all duration-500 shadow-xl flex flex-col md:flex-row gap-5 md:gap-8 items-start w-[85%] min-w-[280px] shrink-0 snap-center md:w-full md:min-w-0 md:shrink md:snap-align-none"
+              className="exp-card group relative p-5 sm:p-8 rounded-2xl glass-card border border-gray-200 dark:border-white/10 hover:border-amber-400 dark:hover:border-gold/40 transition-all duration-500 shadow-sm dark:shadow-xl flex flex-col md:flex-row gap-5 md:gap-8 items-start w-[85%] min-w-[280px] shrink-0 snap-center md:w-full md:min-w-0 md:shrink md:snap-align-none"
             >
               {/* Thumbnail Image */}
-              <div className="w-full md:w-56 h-36 md:h-44 rounded-xl overflow-hidden bg-dark-950 border border-white/10 flex-shrink-0 relative">
+              <div className="w-full md:w-56 h-36 md:h-44 rounded-xl overflow-hidden bg-gray-900 dark:bg-dark-950 border border-gray-200 dark:border-white/10 flex-shrink-0 relative">
                 <img
                   src={exp.image}
                   alt={exp.company}
@@ -130,19 +130,19 @@ export default function Experience() {
               <div className="flex-1 w-full flex flex-col justify-between">
                 <div>
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                    <h3 className="text-lg sm:text-xl font-bold font-display text-white group-hover:text-gold transition-colors">
+                    <h3 className="text-lg sm:text-xl font-bold font-display text-gray-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-gold transition-colors">
                       {exp.role}
                     </h3>
-                    <span className="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-400">
-                      <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                    <span className="inline-flex items-center gap-1.5 text-xs font-mono text-gray-500 dark:text-neutral-400">
+                      <Calendar className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                       <span>{exp.period}</span>
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-3 text-xs sm:text-sm text-gold font-medium mb-3">
+                  <div className="flex items-center gap-3 text-xs sm:text-sm text-amber-600 dark:text-gold font-medium mb-3">
                     <span>{exp.company}</span>
-                    <span className="text-neutral-500">•</span>
-                    <span className="inline-flex items-center gap-1 text-neutral-400">
+                    <span className="text-gray-400 dark:text-neutral-500">•</span>
+                    <span className="inline-flex items-center gap-1 text-gray-500 dark:text-neutral-400">
                       <MapPin className="w-3 h-3" />
                       <span>{exp.location}</span>
                     </span>
@@ -150,13 +150,13 @@ export default function Experience() {
 
                   {/* Mobile View: 1 Poin Inti + Tombol "Lihat Detail" */}
                   <div className="block md:hidden mt-2">
-                    <p className="text-xs text-neutral-400 line-clamp-2 mb-2">
+                    <p className="text-xs text-gray-600 dark:text-neutral-400 line-clamp-2 mb-2">
                       {exp.summary}
                     </p>
                     <button
                       type="button"
                       onClick={() => setActiveModalExp(exp)}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-gold hover:text-gold-200"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-amber-600 hover:text-amber-700 dark:text-gold dark:hover:text-gold-200"
                     >
                       <span>{t.experience.viewDetail}</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -165,13 +165,13 @@ export default function Experience() {
 
                   {/* Desktop View: Full Description & Bullet Points Lengkap */}
                   <div className="hidden md:block">
-                    <p className="text-sm text-neutral-300 leading-relaxed mb-4">
+                    <p className="text-sm text-gray-600 dark:text-neutral-300 leading-relaxed mb-4">
                       {exp.summary}
                     </p>
                     <ul className="space-y-2 mb-5">
                       {exp.tasks.map((task, i) => (
-                        <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-neutral-400">
-                          <CheckCircle className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
+                        <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-600 dark:text-neutral-400">
+                          <CheckCircle className="w-4 h-4 text-amber-600 dark:text-gold flex-shrink-0 mt-0.5" />
                           <span>{task}</span>
                         </li>
                       ))}
@@ -180,11 +180,11 @@ export default function Experience() {
                 </div>
 
                 {/* Tech stack tags */}
-                <div className="hidden md:flex flex-wrap gap-2 pt-4 border-t border-white/10">
+                <div className="hidden md:flex flex-wrap gap-2 pt-4 border-t border-gray-200 dark:border-white/10">
                   {exp.techStack.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-gold/10 text-gold-300 border border-gold/20"
+                      className="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-amber-500/10 dark:bg-gold/10 text-amber-700 dark:text-gold-300 border border-amber-500/20 dark:border-gold/20"
                     >
                       {tech}
                     </span>
@@ -204,34 +204,34 @@ export default function Experience() {
           onClick={() => setActiveModalExp(null)}
         >
           <div
-            className="relative w-full max-w-lg rounded-2xl glass-card border border-gold/30 p-6 shadow-2xl overflow-y-auto max-h-[85vh] bg-dark-900"
+            className="relative w-full max-w-lg rounded-2xl glass-card border border-gray-200 dark:border-gold/30 p-6 shadow-2xl overflow-y-auto max-h-[85vh] bg-white dark:bg-dark-900"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setActiveModalExp(null)}
               aria-label="Tutup"
-              className="absolute top-4 right-4 p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10"
+              className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:text-gray-900 hover:bg-gray-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-white/10"
             >
               <X className="w-5 h-5" />
             </button>
             <div className="mb-4">
-              <span className="text-xs font-mono text-gold uppercase tracking-wider">{activeModalExp.period}</span>
-              <h3 className="text-xl font-bold font-display text-white mt-1">{activeModalExp.role}</h3>
-              <p className="text-sm text-gold font-medium">{activeModalExp.company} · {activeModalExp.location}</p>
+              <span className="text-xs font-mono text-amber-700 dark:text-gold uppercase tracking-wider font-semibold">{activeModalExp.period}</span>
+              <h3 className="text-xl font-bold font-display text-gray-900 dark:text-white mt-1">{activeModalExp.role}</h3>
+              <p className="text-sm text-amber-600 dark:text-gold font-medium">{activeModalExp.company} · {activeModalExp.location}</p>
             </div>
-            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-4">{activeModalExp.summary}</p>
-            <h4 className="text-xs font-mono uppercase tracking-wider text-gold mb-2">{t.experience.tasksTitle}</h4>
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-neutral-300 leading-relaxed mb-4">{activeModalExp.summary}</p>
+            <h4 className="text-xs font-mono uppercase tracking-wider text-amber-700 dark:text-gold mb-2 font-semibold">{t.experience.tasksTitle}</h4>
             <ul className="space-y-2 mb-5">
               {activeModalExp.tasks.map((t, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-xs text-neutral-300">
-                  <CheckCircle className="w-3.5 h-3.5 text-gold flex-shrink-0 mt-0.5" />
+                <li key={idx} className="flex items-start gap-2 text-xs text-gray-600 dark:text-neutral-300">
+                  <CheckCircle className="w-3.5 h-3.5 text-amber-600 dark:text-gold flex-shrink-0 mt-0.5" />
                   <span>{t}</span>
                 </li>
               ))}
             </ul>
-            <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/10">
+            <div className="flex flex-wrap gap-1.5 pt-4 border-t border-gray-200 dark:border-white/10">
               {activeModalExp.techStack.map((tech) => (
-                <span key={tech} className="px-2.5 py-1 rounded-lg text-xs font-mono bg-gold/15 text-gold border border-gold/30">
+                <span key={tech} className="px-2.5 py-1 rounded-lg text-xs font-mono bg-amber-500/10 text-amber-800 border border-amber-500/30 dark:bg-gold/15 dark:text-gold dark:border-gold/30">
                   {tech}
                 </span>
               ))}

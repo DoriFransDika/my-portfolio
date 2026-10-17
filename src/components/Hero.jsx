@@ -77,11 +77,11 @@ export default function Hero() {
     <section
       id="beranda"
       ref={heroRef}
-      className="relative min-h-[92vh] pt-28 pb-16 md:pt-36 md:pb-24 flex flex-col justify-center overflow-hidden bg-grid-pattern bg-[#050505]"
+      className="relative min-h-[92vh] pt-28 pb-16 md:pt-36 md:pb-24 flex flex-col justify-center overflow-hidden bg-grid-pattern bg-gray-50 dark:bg-[#050505] transition-colors duration-300"
     >
       {/* Background Radial Ambiance */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] md:w-[750px] md:h-[750px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 left-10 w-72 h-72 bg-amber-500/5 rounded-full blur-[100px] pointer-events-none -z-10" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] md:w-[750px] md:h-[750px] bg-amber-500/5 dark:bg-amber-500/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 left-10 w-72 h-72 bg-amber-500/5 dark:bg-amber-500/5 rounded-full blur-[100px] pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
@@ -95,7 +95,7 @@ export default function Hero() {
               className="hidden md:flex flex-wrap items-center justify-start gap-2.5 sm:gap-3.5 mb-5"
             >
               {/* Badge 1: Available for Opportunities */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-emerald-500/30 text-xs font-mono text-zinc-200 shadow-sm backdrop-blur-md">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 dark:bg-zinc-900/90 border border-gray-200 dark:border-emerald-500/30 text-xs font-mono text-gray-800 dark:text-zinc-200 shadow-sm backdrop-blur-md">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_#10b981]" />
@@ -104,26 +104,26 @@ export default function Hero() {
               </div>
 
               {/* Badge 2: Cum Laude • IPK 3.68 */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-amber-500/30 text-xs font-mono tracking-wider text-zinc-300 shadow-sm backdrop-blur-md">
-                <span className="font-semibold text-zinc-100">{t.hero.cumLaude}</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 dark:bg-zinc-900/90 border border-gray-200 dark:border-amber-500/30 text-xs font-mono tracking-wider text-gray-800 dark:text-zinc-300 shadow-sm backdrop-blur-md">
+                <span className="font-semibold text-gray-900 dark:text-zinc-100">{t.hero.cumLaude}</span>
                 <span className="text-amber-500/70">•</span>
-                <span className="text-amber-400 font-semibold">{t.hero.ipk}</span>
+                <span className="text-amber-600 dark:text-amber-400 font-semibold">{t.hero.ipk}</span>
               </div>
             </div>
 
             {/* Sub-label: Rata Kiri */}
             <div
               ref={mottoRef}
-              className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-amber-400 font-semibold mb-3 text-left"
+              className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400 font-semibold mb-3 text-left"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
               <span>{t.hero.motto}</span>
             </div>
 
             {/* Headline Utama (H1) — font-display 'Syne' + text-gold-gradient */}
             <div ref={headlineRef} className="mb-4">
-              <h1 className="font-display font-extrabold text-white leading-[1.2] tracking-tight">
-                <span className="block text-lg sm:text-xl md:inline md:text-3xl lg:text-5xl font-medium md:font-extrabold text-zinc-300 md:text-white">
+              <h1 className="font-display font-extrabold text-gray-900 dark:text-white leading-[1.2] tracking-tight">
+                <span className="block text-lg sm:text-xl md:inline md:text-3xl lg:text-5xl font-medium md:font-extrabold text-gray-700 dark:text-zinc-300 md:text-gray-900 md:dark:text-white">
                   {t.hero.greeting}
                 </span>
                 <span className="hidden md:inline"><br /></span>
@@ -131,7 +131,7 @@ export default function Hero() {
                   {t.hero.name}
                 </span>
               </h1>
-              <p className="text-sm sm:text-base font-semibold text-amber-400 mt-2 font-mono">
+              <p className="text-sm sm:text-base font-semibold text-amber-600 dark:text-amber-400 mt-2 font-mono">
                 {t.hero.role}
               </p>
             </div>
@@ -139,7 +139,7 @@ export default function Hero() {
             {/* Deskripsi Perkenalan — Friendly & Humble */}
             <p
               ref={descRef}
-              className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed mb-6 sm:mb-8 font-sans"
+              className="text-gray-600 dark:text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed mb-6 sm:mb-8 font-sans"
             >
               {t.hero.description}
             </p>
@@ -163,17 +163,17 @@ export default function Hero() {
               <a
                 href="#projek"
                 onClick={(e) => handleScrollTo(e, '#projek')}
-                className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full text-sm font-sans font-medium tracking-wide text-zinc-200 hover:text-white bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-700 hover:border-amber-400/60 shadow-sm transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] backdrop-blur-md cursor-pointer"
+                className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full text-sm font-sans font-medium tracking-wide text-gray-800 hover:text-gray-950 bg-white hover:bg-gray-50 border border-gray-300 hover:border-amber-500 shadow-sm dark:text-zinc-200 dark:hover:text-white dark:bg-zinc-900/60 dark:hover:bg-zinc-800/80 dark:border-zinc-700 dark:hover:border-amber-400/60 dark:shadow-sm transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] backdrop-blur-md cursor-pointer"
               >
                 <span>{t.hero.viewWorkBtn}</span>
-                <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1.5 transition-transform duration-300" />
+                <ArrowRight className="w-4 h-4 text-amber-600 dark:text-amber-400 group-hover:translate-x-1.5 transition-transform duration-300" />
               </a>
 
               {/* Quick CV Download */}
               <button
                 onClick={handleDownloadCV}
                 title="Download Curriculum Vitae"
-                className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-full text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-amber-400 hover:bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 transition-all duration-300 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-full text-xs font-mono uppercase tracking-wider text-gray-600 hover:text-amber-600 bg-white hover:bg-gray-100 border border-gray-200 hover:border-amber-400 dark:text-zinc-400 dark:hover:text-amber-400 dark:bg-transparent dark:hover:bg-zinc-900/80 dark:border-zinc-800 dark:hover:border-zinc-700 transition-all duration-300 cursor-pointer shadow-sm dark:shadow-none"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>CV</span>
@@ -217,7 +217,7 @@ export default function Hero() {
                 <a
                   href="#projek"
                   onClick={(e) => handleScrollTo(e, '#projek')}
-                  className="flex items-center justify-center gap-1.5 py-3 rounded-full text-xs font-bold text-zinc-200 bg-zinc-900/80 border border-zinc-700 hover:border-amber-400/50 hover:text-amber-400 active:scale-95 transition-all"
+                  className="flex items-center justify-center gap-1.5 py-3 rounded-full text-xs font-bold text-gray-800 bg-white border border-gray-300 hover:border-amber-500 hover:text-amber-600 shadow-sm dark:text-zinc-200 dark:bg-zinc-900/80 dark:border-zinc-700 dark:hover:border-amber-400/50 dark:hover:text-amber-400 active:scale-95 transition-all"
                 >
                   <span>{t.hero.viewWorkBtn}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -227,9 +227,9 @@ export default function Hero() {
               {/* Download CV Button di Mobile */}
               <button
                 onClick={handleDownloadCV}
-                className="flex items-center justify-center gap-2 py-3 px-4 rounded-full text-xs font-mono font-semibold uppercase tracking-wider text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 active:scale-95 transition-all cursor-pointer shadow-sm"
+                className="flex items-center justify-center gap-2 py-3 px-4 rounded-full text-xs font-mono font-semibold uppercase tracking-wider text-amber-700 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 dark:text-amber-300 dark:bg-amber-500/10 dark:hover:bg-amber-500/20 dark:border-amber-500/30 active:scale-95 transition-all cursor-pointer shadow-sm"
               >
-                <Download className="w-3.5 h-3.5 text-amber-400" />
+                <Download className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                 <span>{t.hero.downloadCvBtn}</span>
               </button>
             </div>

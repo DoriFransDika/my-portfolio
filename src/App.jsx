@@ -13,6 +13,7 @@ import Preloader from './components/Preloader';
 import { useLenis } from './hooks/useLenis';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { LanguageProvider } from './context/LanguageContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 export default function App() {
   const [showPreloader, setShowPreloader] = useState(true);
@@ -45,29 +46,31 @@ export default function App() {
   }, [showPreloader]);
 
   return (
-    <LanguageProvider>
-      <div className="relative min-h-screen bg-[#0d0d0d] text-[#e5e5e5] selection:bg-gold/30 selection:text-gold-200">
-        {/* Intro Preloader / Splash Screen */}
-        {showPreloader && <Preloader onFinished={handlePreloaderFinished} />}
+    <ThemeProvider>
+      <LanguageProvider>
+        <div className="relative min-h-screen bg-gray-50 text-gray-800 dark:bg-[#0d0d0d] dark:text-[#e5e5e5] selection:bg-gold/30 selection:text-amber-800 dark:selection:text-gold-200 transition-colors duration-300">
+          {/* Intro Preloader / Splash Screen */}
+          {showPreloader && <Preloader onFinished={handlePreloaderFinished} />}
 
-        {/* Top Floating Glassmorphism Navbar */}
-        <Navbar />
+          {/* Top Floating Glassmorphism Navbar */}
+          <Navbar />
 
-        {/* Main Single-Page Content Sections */}
-        <main>
-          <Hero />
-          <About />
-          <Education />
-          <Skills />
-          <Certifications />
-          <Experience />
-          <Projects />
-          <Contact />
-        </main>
+          {/* Main Single-Page Content Sections */}
+          <main>
+            <Hero />
+            <About />
+            <Education />
+            <Skills />
+            <Certifications />
+            <Experience />
+            <Projects />
+            <Contact />
+          </main>
 
-        {/* Footer with Running Marquee & Copyright */}
-        <Footer />
-      </div>
-    </LanguageProvider>
+          {/* Footer with Running Marquee & Copyright */}
+          <Footer />
+        </div>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }

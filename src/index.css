@@ -6,7 +6,15 @@
 
 @layer base {
   :root {
+    color-scheme: light dark;
+  }
+
+  html.dark {
     color-scheme: dark;
+  }
+
+  html:not(.dark) {
+    color-scheme: light;
   }
 
   html {
@@ -14,10 +22,15 @@
   }
 
   body {
-    background-color: #0d0d0d;
-    color: #e5e5e5;
+    background-color: #f9fafb;
+    color: #111827;
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     overflow-x: hidden;
+  }
+
+  html.dark body {
+    background-color: #0d0d0d;
+    color: #e5e5e5;
   }
 
   /* Custom Luxury Scrollbar */
@@ -26,12 +39,20 @@
   }
 
   ::-webkit-scrollbar-track {
+    background: #f3f4f6;
+  }
+
+  html.dark ::-webkit-scrollbar-track {
     background: #0d0d0d;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #2a261c;
+    background: #cbd5e1;
     border-radius: 9999px;
+  }
+
+  html.dark ::-webkit-scrollbar-thumb {
+    background: #2a261c;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -40,30 +61,51 @@
 }
 
 @layer utilities {
-  /* Subtle dark editorial grid overlay */
+  /* Subtle editorial grid overlay */
   .bg-grid-pattern {
     background-size: 50px 50px;
+    background-image: 
+      linear-gradient(to right, rgba(180, 83, 9, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(180, 83, 9, 0.05) 1px, transparent 1px);
+  }
+
+  html.dark .bg-grid-pattern {
     background-image: 
       linear-gradient(to right, rgba(212, 175, 55, 0.03) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
   }
 
   .bg-radial-vignette {
+    background: radial-gradient(circle at 50% 30%, rgba(217, 119, 6, 0.08) 0%, rgba(249, 250, 251, 0) 70%);
+  }
+
+  html.dark .bg-radial-vignette {
     background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.08) 0%, rgba(13, 13, 13, 0) 70%);
   }
 
   /* Glassmorphism Presets */
   .glass-nav {
-    background: rgba(13, 13, 13, 0.75);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(229, 231, 235, 0.9);
+  }
+
+  html.dark .glass-nav {
+    background: rgba(13, 13, 13, 0.75);
     border: 1px solid rgba(212, 175, 55, 0.15);
   }
 
   .glass-card {
-    background: rgba(20, 20, 20, 0.6);
+    background: #ffffff;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  html.dark .glass-card {
+    background: rgba(20, 20, 20, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.06);
     box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
   }
@@ -73,6 +115,12 @@
   }
 
   .glass-card-hover:hover {
+    border-color: rgba(217, 119, 6, 0.4);
+    box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.12);
+    transform: translateY(-4px);
+  }
+
+  html.dark .glass-card-hover:hover {
     border-color: rgba(212, 175, 55, 0.4);
     box-shadow: 0 14px 40px -12px rgba(212, 175, 55, 0.15);
     transform: translateY(-4px);
@@ -80,12 +128,24 @@
 
   /* Gold Text Gradient */
   .text-gold-gradient {
+    background: linear-gradient(135deg, #111827 0%, #b45309 60%, #d97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  html.dark .text-gold-gradient {
     background: linear-gradient(135deg, #ffffff 0%, #d4af37 60%, #f59e0b 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .text-metallic-gold {
+    background: linear-gradient(180deg, #78350f 0%, #b45309 70%, #d97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  html.dark .text-metallic-gold {
     background: linear-gradient(180deg, #fffbeb 0%, #d4af37 70%, #92400e 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -93,10 +153,18 @@
 
   /* Glow Utilities */
   .glow-gold-sm {
+    box-shadow: 0 2px 8px rgba(217, 119, 6, 0.15);
+  }
+
+  html.dark .glow-gold-sm {
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
   }
 
   .glow-gold-lg {
+    box-shadow: 0 4px 16px rgba(217, 119, 6, 0.2);
+  }
+
+  html.dark .glow-gold-lg {
     box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
   }
 }

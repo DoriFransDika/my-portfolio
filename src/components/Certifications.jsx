@@ -150,26 +150,26 @@ export default function Certifications() {
   return (
     <section
       id="sertifikat"
-      className="relative py-20 sm:py-28 lg:py-32 bg-dark-950 border-t border-white/5 overflow-hidden"
+      className="relative py-20 sm:py-28 lg:py-32 bg-gray-50 dark:bg-dark-950 border-t border-gray-200 dark:border-white/5 overflow-hidden transition-colors duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="flex flex-col items-start mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/25 text-xs font-mono text-gold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 dark:bg-gold/10 border border-amber-500/20 dark:border-gold/25 text-xs font-mono text-amber-700 dark:text-gold uppercase tracking-wider mb-3">
             <Award className="w-3.5 h-3.5" />
             <span>{t.certifications.tag}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-gray-900 dark:text-white tracking-tight">
             {t.certifications.headingStart} <span className="text-gold-gradient">{t.certifications.headingGradient}</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-neutral-400 max-w-2xl font-normal">
+          <p className="mt-4 text-base sm:text-lg text-gray-600 dark:text-neutral-400 max-w-2xl font-normal">
             {t.certifications.subtitle}
           </p>
         </div>
 
         {/* Hint geser di Mobile */}
-        <div className="flex md:hidden items-center gap-1.5 text-[11px] font-mono text-gold/80 mb-3">
+        <div className="flex md:hidden items-center gap-1.5 text-[11px] font-mono text-amber-700/80 dark:text-gold/80 mb-3">
           <span>{t.certifications.swipeHint}</span>
           <span className="animate-pulse">→</span>
         </div>
@@ -183,32 +183,32 @@ export default function Certifications() {
             return (
               <div
                 key={cert.id}
-                className={`group relative rounded-2xl glass-card p-6 border border-white/10 ${brand.hoverBorder} transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl flex flex-col justify-between overflow-hidden border-t-2 ${brand.borderTop} w-[85%] min-w-[280px] shrink-0 snap-center md:w-auto md:min-w-0 md:shrink md:snap-align-none`}
+                className={`group relative rounded-2xl glass-card p-6 border border-gray-200 dark:border-white/10 ${brand.hoverBorder} transition-all duration-500 hover:-translate-y-1 hover:shadow-lg dark:hover:shadow-2xl shadow-sm dark:shadow-none flex flex-col justify-between overflow-hidden border-t-2 ${brand.borderTop} w-[85%] min-w-[280px] shrink-0 snap-center md:w-auto md:min-w-0 md:shrink md:snap-align-none`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${brand.iconBg}`}>
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300">
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-neutral-300">
                       {cert.badge}
                     </span>
                   </div>
 
                   <p className={`text-xs font-mono font-semibold mb-1 ${brand.issuerText}`}>{cert.issuer}</p>
-                  <h3 className="text-base sm:text-lg font-bold font-display text-white mb-2 group-hover:text-gold transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold font-display text-gray-900 dark:text-white mb-2 group-hover:text-amber-600 dark:group-hover:text-gold transition-colors">
                     {cert.title}
                   </h3>
 
                   {/* Mobile 1 poin inti */}
                   <div className="block md:hidden mb-2">
-                    <p className="text-xs text-neutral-400 line-clamp-1 mb-2">
+                    <p className="text-xs text-gray-600 dark:text-neutral-400 line-clamp-1 mb-2">
                       {cert.corePoint}
                     </p>
                     <button
                       type="button"
                       onClick={() => setActiveModalCert(cert)}
-                      className="text-xs font-bold text-gold hover:text-gold-200"
+                      className="text-xs font-bold text-amber-600 hover:text-amber-700 dark:text-gold dark:hover:text-gold-200"
                     >
                       {t.certifications.viewDetail}
                     </button>
@@ -216,14 +216,14 @@ export default function Certifications() {
 
                   {/* Desktop Full Description & Chips */}
                   <div className="hidden md:block">
-                    <p className="text-xs text-neutral-400 leading-relaxed mb-4">
+                    <p className="text-xs text-gray-600 dark:text-neutral-400 leading-relaxed mb-4">
                       {cert.desc}
                     </p>
                     <div className="flex flex-wrap gap-1.5 mb-4">
                       {cert.techChips.map((chip) => (
                         <span
                           key={chip}
-                          className="px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-white/5 text-neutral-300 border border-white/10"
+                          className="px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-neutral-300 border border-gray-200 dark:border-white/10"
                         >
                           {chip}
                         </span>
@@ -232,17 +232,17 @@ export default function Certifications() {
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                <div className="pt-4 border-t border-gray-200 dark:border-white/10 flex items-center justify-between">
                   <a
                     href={cert.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-gold hover:text-gold-200 transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-amber-600 hover:text-amber-700 dark:text-gold dark:hover:text-gold-200 transition-colors"
                   >
                     <span>{t.certifications.openCert}</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
-                  <span className="text-[10px] font-mono text-neutral-500">{t.certifications.officialBadge}</span>
+                  <span className="text-[10px] font-mono text-gray-500 dark:text-neutral-500">{t.certifications.officialBadge}</span>
                 </div>
               </div>
             );
@@ -258,25 +258,25 @@ export default function Certifications() {
           onClick={() => setActiveModalCert(null)}
         >
           <div
-            className="relative w-full max-w-md rounded-2xl glass-card border border-gold/30 p-6 shadow-2xl bg-dark-900"
+            className="relative w-full max-w-md rounded-2xl glass-card border border-gray-200 dark:border-gold/30 p-6 shadow-2xl bg-white dark:bg-dark-900"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setActiveModalCert(null)}
               aria-label="Tutup"
-              className="absolute top-4 right-4 p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10"
+              className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:text-gray-900 hover:bg-gray-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-white/10"
             >
               <X className="w-5 h-5" />
             </button>
             <div className="mb-4">
-              <span className="text-xs font-mono text-gold font-bold uppercase tracking-wider">{activeModalCert.badge}</span>
-              <h3 className="text-lg font-bold font-display text-white mt-1">{activeModalCert.title}</h3>
-              <p className="text-xs text-amber-400 font-medium">{activeModalCert.issuer}</p>
+              <span className="text-xs font-mono text-amber-700 dark:text-gold font-bold uppercase tracking-wider">{activeModalCert.badge}</span>
+              <h3 className="text-lg font-bold font-display text-gray-900 dark:text-white mt-1">{activeModalCert.title}</h3>
+              <p className="text-xs text-amber-600 dark:text-amber-400 font-medium">{activeModalCert.issuer}</p>
             </div>
-            <p className="text-xs text-neutral-300 leading-relaxed mb-4">{activeModalCert.desc}</p>
+            <p className="text-xs text-gray-600 dark:text-neutral-300 leading-relaxed mb-4">{activeModalCert.desc}</p>
             <div className="flex flex-wrap gap-1.5 mb-5">
               {activeModalCert.techChips.map((c) => (
-                <span key={c} className="px-2.5 py-1 rounded-md text-[10px] font-mono bg-gold/15 text-gold border border-gold/30">
+                <span key={c} className="px-2.5 py-1 rounded-md text-[10px] font-mono bg-amber-500/10 text-amber-800 border border-amber-500/30 dark:bg-gold/15 dark:text-gold dark:border-gold/30">
                   {c}
                 </span>
               ))}

@@ -63,13 +63,13 @@ export default function ProfileCard({
       className={`profile-card-wrapper relative w-full ${className}`}
       style={{ perspective: '1200px' }}
     >
-      {/* Card Body — Glassmorphism gelap (bg-zinc-900/90 border border-zinc-800/80 rounded-3xl p-6 pt-0 backdrop-blur-xl) */}
+      {/* Card Body */}
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="group relative bg-zinc-900/90 border border-zinc-800/80 rounded-3xl p-6 pt-0 backdrop-blur-xl hover:border-amber-500/40 transition-colors duration-300 shadow-2xl shadow-black/80 cursor-default overflow-visible"
+        className="group relative bg-white dark:bg-zinc-900/90 border border-gray-200 dark:border-zinc-800/80 rounded-3xl p-6 pt-0 backdrop-blur-xl hover:border-amber-500/50 dark:hover:border-amber-500/40 transition-colors duration-300 shadow-xl dark:shadow-2xl dark:shadow-black/80 cursor-default overflow-visible"
         style={{
           transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
           transition: isHovered
@@ -83,24 +83,24 @@ export default function ProfileCard({
         <div
           className="absolute inset-0 rounded-3xl pointer-events-none z-10 transition-opacity duration-300"
           style={{
-            background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(255,255,255,0.07) 0%, transparent 60%)`,
+            background: `radial-gradient(circle at ${glowPos.x}% ${glowPos.y}%, rgba(255,255,255,0.12) 0%, transparent 60%)`,
             opacity: isHovered ? 1 : 0,
           }}
         />
 
         {/* ─── Pop-Out Photo Section with 3D Backlight Spotlight ─── */}
         <div className="relative flex justify-center overflow-visible select-none">
-          {/* 1. Ambient Backlight Glow: absolute bg-amber-500/30 blur-3xl w-56 h-56 */}
+          {/* 1. Ambient Backlight Glow */}
           <div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 rounded-full bg-amber-500/30 blur-3xl pointer-events-none transition-opacity duration-500 group-hover:opacity-80"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 rounded-full bg-amber-500/20 dark:bg-amber-500/30 blur-3xl pointer-events-none transition-opacity duration-500 group-hover:opacity-80"
           />
 
-          {/* 2. Backlight Inner Ring: border border-amber-500/30 rounded-full w-48 h-48 */}
+          {/* 2. Backlight Inner Ring */}
           <div
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full border border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.2)] pointer-events-none transition-all duration-500 group-hover:scale-105"
           />
 
-          {/* 3. Pop-Out PNG Photo Container (overflow-visible, negative top margin -mt-20) */}
+          {/* 3. Pop-Out PNG Photo Container */}
           <div className="relative z-20 overflow-visible -mt-20">
             <img
               src={avatarUrl}
@@ -113,31 +113,31 @@ export default function ProfileCard({
 
         {/* ─── Card Content (below the photo) ─── */}
         <div className="relative z-[5] px-6 pb-6 pt-3 flex flex-col items-center text-center gap-4">
-          {/* Name & Details — Font Sans (Plus Jakarta Sans) */}
+          {/* Name & Details */}
           <div className="space-y-1.5 w-full">
-            <h3 className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-sans font-bold text-gray-900 dark:text-white tracking-tight">
               {name}
             </h3>
-            <p className="text-sm font-sans font-medium text-amber-400">{title}</p>
+            <p className="text-sm font-sans font-medium text-amber-600 dark:text-amber-400">{title}</p>
             {displayHandle && (
-              <p className="text-xs font-mono font-semibold tracking-wider text-amber-300/90 uppercase">
+              <p className="text-xs font-mono font-semibold tracking-wider text-amber-700 dark:text-amber-300/90 uppercase">
                 {displayHandle}
               </p>
             )}
           </div>
 
           {/* Decorative Divider */}
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
+          <div className="w-16 h-px bg-gradient-to-r from-transparent via-amber-500/30 dark:via-amber-500/40 to-transparent" />
 
-          {/* Mini Stats Grid — Font Mono for values & labels */}
+          {/* Mini Stats Grid */}
           <div className="grid grid-cols-3 gap-2.5 w-full">
             {stats.map((item, idx) => (
               <div
                 key={idx}
-                className="py-2.5 px-1.5 rounded-xl bg-white/[0.03] border border-zinc-800/80 hover:border-zinc-700 transition-colors"
+                className="py-2.5 px-1.5 rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-zinc-800/80 hover:border-amber-300 dark:hover:border-zinc-700 transition-colors"
               >
-                <div className="text-sm font-bold font-mono text-amber-400">{item.value}</div>
-                <div className="text-[10px] text-zinc-500 uppercase tracking-wider mt-0.5 font-mono">
+                <div className="text-sm font-bold font-mono text-amber-600 dark:text-amber-400">{item.value}</div>
+                <div className="text-[10px] text-gray-500 dark:text-zinc-500 uppercase tracking-wider mt-0.5 font-mono">
                   {item.label}
                 </div>
               </div>

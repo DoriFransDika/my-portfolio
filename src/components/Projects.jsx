@@ -186,7 +186,7 @@ export default function Projects() {
     <section
       id="projek"
       ref={sectionRef}
-      className="relative py-20 sm:py-28 lg:py-32 bg-dark-900 border-t border-white/5 overflow-hidden"
+      className="relative py-20 sm:py-28 lg:py-32 bg-gray-50 dark:bg-dark-900 border-t border-gray-200 dark:border-white/5 overflow-hidden transition-colors duration-300"
     >
       {/* Background Ambient Glows */}
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gold/[0.04] rounded-full blur-[180px] pointer-events-none" />
@@ -196,16 +196,16 @@ export default function Projects() {
         
         {/* Section Header */}
         <div className="flex items-center justify-between mb-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/25 text-xs font-mono text-gold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 dark:bg-gold/10 border border-amber-500/20 dark:border-gold/25 text-xs font-mono text-amber-700 dark:text-gold uppercase tracking-wider">
             <FolderGit2 className="w-3.5 h-3.5" />
             <span>{t.projects.tag}</span>
           </div>
-          <span className="text-[10px] font-mono text-gold md:hidden">{t.projects.swipeHint}</span>
+          <span className="text-[10px] font-mono text-amber-700 dark:text-gold md:hidden">{t.projects.swipeHint}</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight mb-4">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">
           {t.projects.headingStart} <span className="text-gold-gradient">{t.projects.headingGradient}</span>
         </h2>
-        <p className="text-sm sm:text-base text-neutral-400 max-w-2xl font-normal leading-relaxed mb-10 sm:mb-14">
+        <p className="text-sm sm:text-base text-gray-600 dark:text-neutral-400 max-w-2xl font-normal leading-relaxed mb-10 sm:mb-14">
           {t.projects.subtitle}
         </p>
 
@@ -221,19 +221,21 @@ export default function Projects() {
             <article
               key={project.id}
               className={`project-card group relative w-[85%] sm:w-[75%] md:w-auto flex-shrink-0 snap-start rounded-2xl overflow-hidden glass-card border ${
-                project.isFeatured ? 'border-gold/50 shadow-2xl shadow-gold/15' : 'border-white/10'
-              } hover:border-gold transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-gold/10 flex flex-col justify-between`}
+                project.isFeatured
+                  ? 'border-amber-400/80 shadow-md shadow-amber-500/10 dark:border-gold/50 dark:shadow-2xl dark:shadow-gold/15'
+                  : 'border-gray-200 dark:border-white/10'
+              } hover:border-amber-400 dark:hover:border-gold transition-all duration-500 shadow-sm dark:shadow-xl hover:shadow-md dark:hover:shadow-2xl dark:hover:shadow-gold/10 flex flex-col justify-between`}
             >
               <div>
                 {/* 16:9 Image with Hover Zoom */}
-                <div className="relative aspect-video overflow-hidden bg-dark-950">
+                <div className="relative aspect-video overflow-hidden bg-gray-900 dark:bg-dark-950">
                   <img
                     src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter contrast-105"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 dark:from-dark-950 via-black/20 dark:via-dark-950/20 to-transparent" />
                   
                   {/* Badge */}
                   <div className="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-full bg-dark-950/85 backdrop-blur-md border border-gold/40 text-[11px] font-mono text-gold">
@@ -244,11 +246,11 @@ export default function Projects() {
 
                 {/* Content */}
                 <div className="p-5">
-                  <div className="text-[11px] font-mono text-amber-400 mb-1">{project.category}</div>
-                  <h3 className="text-base sm:text-lg font-bold font-display text-white mb-2 group-hover:text-gold transition-colors line-clamp-1">
+                  <div className="text-[11px] font-mono text-amber-600 dark:text-amber-400 font-medium mb-1">{project.category}</div>
+                  <h3 className="text-base sm:text-lg font-bold font-display text-gray-900 dark:text-white mb-2 group-hover:text-amber-600 dark:group-hover:text-gold transition-colors line-clamp-1">
                     {project.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed mb-4 line-clamp-2">
+                  <p className="text-xs sm:text-sm text-gray-600 dark:text-neutral-400 leading-relaxed mb-4 line-clamp-2">
                     {project.shortDescription}
                   </p>
 
@@ -256,7 +258,7 @@ export default function Projects() {
                     {project.techStack.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-gold/10 text-gold-300 border border-gold/20"
+                        className="px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-amber-500/10 dark:bg-gold/10 text-amber-700 dark:text-gold-300 border border-amber-500/20 dark:border-gold/20"
                       >
                         {tech}
                       </span>
@@ -266,11 +268,11 @@ export default function Projects() {
               </div>
 
               {/* Action buttons with Original Styling */}
-              <div className="p-5 pt-0 flex items-center justify-between border-t border-white/10">
+              <div className="p-5 pt-0 flex items-center justify-between border-t border-gray-200 dark:border-white/10">
                 <button
                   type="button"
                   onClick={() => setSelectedProject(project)}
-                  className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-gold hover:text-gold-200 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-amber-600 hover:text-amber-700 dark:text-gold dark:hover:text-gold-200 transition-colors cursor-pointer"
                 >
                   <span>{t.projects.viewDetail}</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -281,7 +283,7 @@ export default function Projects() {
                       href={project.liveDemoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-mono text-neutral-400 hover:text-white transition-colors"
+                      className="text-xs font-mono text-gray-500 hover:text-gray-900 dark:text-neutral-400 dark:hover:text-white transition-colors"
                     >
                       Demo ↗
                     </a>
@@ -291,7 +293,7 @@ export default function Projects() {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-mono text-neutral-400 hover:text-white transition-colors"
+                      className="text-xs font-mono text-gray-500 hover:text-gray-900 dark:text-neutral-400 dark:hover:text-white transition-colors"
                     >
                       GitHub ↗
                     </a>
@@ -311,28 +313,28 @@ export default function Projects() {
           onClick={() => setSelectedProject(null)}
         >
           <div
-            className="relative w-full max-w-2xl rounded-2xl glass-card border border-gold/30 p-6 sm:p-8 shadow-2xl overflow-y-auto max-h-[90vh] bg-dark-900"
+            className="relative w-full max-w-2xl rounded-2xl glass-card border border-gray-200 dark:border-gold/30 p-6 sm:p-8 shadow-2xl overflow-y-auto max-h-[90vh] bg-white dark:bg-dark-900"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setSelectedProject(null)}
               aria-label={t.projects.modalClose}
-              className="absolute top-4 right-4 p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+              className="absolute top-4 right-4 p-2 rounded-xl text-gray-400 hover:text-gray-900 hover:bg-gray-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-white/10 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="mb-4">
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-gold/15 text-gold border border-gold/30 mb-2">
+              <span className="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-amber-500/15 text-amber-700 border border-amber-500/30 dark:bg-gold/15 dark:text-gold dark:border-gold/30 mb-2">
                 {selectedProject.badge}
               </span>
-              <h3 className="text-xl sm:text-2xl font-bold font-display text-white leading-tight">
+              <h3 className="text-xl sm:text-2xl font-bold font-display text-gray-900 dark:text-white leading-tight">
                 {selectedProject.title}
               </h3>
-              <p className="text-xs sm:text-sm font-mono text-amber-400 mt-1">{selectedProject.category}</p>
+              <p className="text-xs sm:text-sm font-mono text-amber-600 dark:text-amber-400 mt-1">{selectedProject.category}</p>
             </div>
 
-            <div className="rounded-xl overflow-hidden mb-5 border border-white/10 aspect-video bg-dark-950">
+            <div className="rounded-xl overflow-hidden mb-5 border border-gray-200 dark:border-white/10 aspect-video bg-gray-900 dark:bg-dark-950">
               <img
                 src={selectedProject.image}
                 alt={selectedProject.title}
@@ -341,16 +343,16 @@ export default function Projects() {
             </div>
 
             <div className="mb-5">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-gold mb-2">{t.projects.modalDescTitle}</h4>
-              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+              <h4 className="text-xs font-mono uppercase tracking-wider text-amber-700 dark:text-gold mb-2 font-semibold">{t.projects.modalDescTitle}</h4>
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-neutral-300 leading-relaxed">
                 {selectedProject.fullDescription}
               </p>
             </div>
 
             {selectedProject.highlights && (
               <div className="mb-5">
-                <h4 className="text-xs font-mono uppercase tracking-wider text-gold mb-2">{t.projects.modalHighlightsTitle}</h4>
-                <ul className="text-xs sm:text-sm text-neutral-400 space-y-1.5 list-disc list-inside">
+                <h4 className="text-xs font-mono uppercase tracking-wider text-amber-700 dark:text-gold mb-2 font-semibold">{t.projects.modalHighlightsTitle}</h4>
+                <ul className="text-xs sm:text-sm text-gray-600 dark:text-neutral-400 space-y-1.5 list-disc list-inside">
                   {selectedProject.highlights.map((h) => (
                     <li key={h}>{h}</li>
                   ))}
@@ -359,17 +361,17 @@ export default function Projects() {
             )}
 
             <div className="mb-6">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-gold mb-2">Tech Stack</h4>
+              <h4 className="text-xs font-mono uppercase tracking-wider text-amber-700 dark:text-gold mb-2 font-semibold">Tech Stack</h4>
               <div className="flex flex-wrap gap-2">
                 {selectedProject.techStack.map((t) => (
-                  <span key={t} className="px-3 py-1 rounded-lg text-xs font-mono bg-gold/15 text-gold border border-gold/30">
+                  <span key={t} className="px-3 py-1 rounded-lg text-xs font-mono bg-amber-500/10 text-amber-800 border border-amber-500/30 dark:bg-gold/15 dark:text-gold dark:border-gold/30">
                     {t}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="pt-5 border-t border-white/10 flex flex-wrap items-center gap-3">
+            <div className="pt-5 border-t border-gray-200 dark:border-white/10 flex flex-wrap items-center gap-3">
               {selectedProject.liveDemoUrl && (
                 <a
                   href={selectedProject.liveDemoUrl}
@@ -386,9 +388,9 @@ export default function Projects() {
                   href={selectedProject.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold uppercase tracking-wider text-white bg-dark-800 hover:bg-dark-700 border border-white/10 hover:border-gold/50 shadow-sm transition-all hover:scale-105 active:scale-95"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-800 bg-gray-100 hover:bg-gray-200 border border-gray-300 hover:border-amber-400 dark:text-white dark:bg-dark-800 dark:hover:bg-dark-700 dark:border-white/10 dark:hover:border-gold/50 shadow-sm transition-all hover:scale-105 active:scale-95"
                 >
-                  <GithubIcon className="w-4 h-4 text-gold" />
+                  <GithubIcon className="w-4 h-4 text-amber-600 dark:text-gold" />
                   <span>{t.projects.sourceCode}</span>
                 </a>
               )}
